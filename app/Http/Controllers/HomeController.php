@@ -24,6 +24,7 @@ class HomeController extends Controller
     public function index()
     {
         $meetings = Meeting::all();
+        
         return view('home')->with('meetings',$meetings);
     }
 }
