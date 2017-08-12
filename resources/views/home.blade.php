@@ -23,7 +23,7 @@
                 <a href="/meetingP/{{$meet->id}}" class="btn btn-info">Add participant</a>
                 |{{$meet->title}}<br>
                 <a href="/meetingA/{{$meet->id}}">Add agenda</a><br>
-                <a href="/meetingA/{{$meet->id}}">Closings</a><br>
+                <a href="/meetingC/{{$meet->id}}">Closings</a><br>
 
             </li @endforeach>
         </div @endif>

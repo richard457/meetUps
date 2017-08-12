@@ -13,7 +13,15 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    public function meetingParticipant(){
 
+    }
+    public function meetingAgenda(){
+
+    }
+    public function meetingClosing(){
+
+    }
     public function index()
     {
         $meetings = Meeting::whereuser_id(Auth::id())->get();

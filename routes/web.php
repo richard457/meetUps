@@ -19,3 +19,6 @@ Route::post('meeting','MeetingController@store');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/meetingP/{meetingId}', 'HomeController@meetingParticipant');
+Route::get('/meetingA/{meetingId}', 'HomeController@meetingAgenda');
+Route::get('/meetingC/{meetingId}', 'HomeController@meetingClosing');
