@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="col-md-7" style="min-width:750px;" @if(sizeof($meetings) >0)>
-            <li @foreach($meetings as $meet) class="panel-heading form-text">{{$meet->title}}<br></li @endforeach>
+            <li class="card" @foreach($meetings as $meet) class="panel-heading form-text"><a href="{{$meet->id}}" class="btn btn-info">Add participant</a>|{{$meet->title}}<br></li @endforeach>
         </div @endif>
     </div>
 </div>

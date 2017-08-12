@@ -16,7 +16,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $meetings = Meeting::whereuser_id(Auth::id());
+        $meetings = Meeting::whereuser_id(Auth::id())->get();
         
         return view('home')->with('meetings',$meetings);
     }
