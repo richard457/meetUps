@@ -13,15 +13,14 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    public function meetingParticipant(){
+    public function more(Request $request){
+        return view ('more');
+        //TODO make post or get based on requesting route method.
+        if($request->has('arising_issue')){
 
+        }
     }
-    public function meetingAgenda(){
 
-    }
-    public function meetingClosing(){
-
-    }
     public function index()
     {
         $meetings = Meeting::whereuser_id(Auth::id())->get();

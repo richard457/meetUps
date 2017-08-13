@@ -23,7 +23,7 @@
         @foreach($meetings as $meet) 
             <li style="padding:1em;display:block;background:#fff;margin-bottom:10px;">
             {{$meet->title}}
-            <a href="/manipulate/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">More..</a>
+            <a href="/more/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">More..</a>
             <a href="/print/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">Print</a>
            
             </li>
