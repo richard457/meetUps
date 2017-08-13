@@ -23,9 +23,9 @@
         @foreach($meetings as $meet) 
             <li style="padding:1em;display:block;background:#fff;margin-bottom:10px;">
             {{$meet->title}}
-            <button class="btn btn-info btn-sm pull-right" style="margin-right:1em;">Add Agenda</button>
-            <button class="btn btn-info btn-sm pull-right" style="margin-right:1em;">Add Participant</button>
-            <button class="btn btn-info btn-sm pull-right" style="margin-right:1em;">Add Participant</button>
+            <a href="/manipulate/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">More..</a>
+            <a href="/print/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">Print</a>
+           
             </li>
         @endforeach
     
