@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+
+<div class="container" style="padding:1em;">
     <div class="row">
         <div class="col-md-6" style="margin-left:-185px;">
             <div class="panel panel-default">
@@ -19,13 +20,15 @@
             </div>
         </div>
         <div class="col-md-7" style="min-width:750px;" @if(sizeof($meetings) >0)>
-            <li class="card" @foreach($meetings as $meet) class="panel-heading form-text">
-                <a href="/meetingP/{{$meet->id}}" class="btn btn-info">Add participant</a>
-                |{{$meet->title}}<br>
-                <a href="/meetingA/{{$meet->id}}">Add agenda</a><br>
-                <a href="/meetingC/{{$meet->id}}">Closings</a><br>
-
-            </li @endforeach>
+        @foreach($meetings as $meet) 
+            <li style="padding:1em;display:block;background:#fff;margin-bottom:10px;">
+            {{$meet->title}}
+            <button class="btn btn-info btn-sm pull-right" style="margin-right:1em;">Add Agenda</button>
+            <button class="btn btn-info btn-sm pull-right" style="margin-right:1em;">Add Participant</button>
+            <button class="btn btn-info btn-sm pull-right" style="margin-right:1em;">Add Participant</button>
+            </li>
+        @endforeach
+    
         </div @endif>
     </div>
 </div>
