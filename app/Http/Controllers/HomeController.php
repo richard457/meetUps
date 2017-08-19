@@ -14,11 +14,9 @@ class HomeController extends Controller
     }
 
     public function more(Request $request){
-        return view ('more');
-        //TODO make post or get based on requesting route method.
-        if($request->has('arising_issue')){
 
-        }
+        return view ('more');
+
     }
 
     public function index()

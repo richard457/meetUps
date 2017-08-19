@@ -4,7 +4,6 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -27,6 +26,10 @@ Vue.component(
 Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue')
+);
+Vue.component(
+    'meetings',
+    require('./components/Meeting/Meeting.vue')
 );
 
 

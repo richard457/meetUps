@@ -19,17 +19,20 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-7" style="min-width:750px;" @if(sizeof($meetings) >0)>
-        @foreach($meetings as $meet) 
-            <li style="padding:1em;display:block;background:#fff;margin-bottom:10px;">
-            {{$meet->title}}
-            <a href="/more/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">More..</a>
-            <a href="/print/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">Print</a>
-           
-            </li>
-        @endforeach
-    
-        </div @endif>
+        <div>
+            <meetings></meetings>
+        </div>
+        {{--<div class="col-md-7" style="min-width:750px;" @if(sizeof($meetings) >0)>--}}
+        {{--@foreach($meetings as $meet) --}}
+            {{--<li style="padding:1em;display:block;background:#fff;margin-bottom:10px;">--}}
+            {{--{{$meet->title}}--}}
+            {{--<a href="/more/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">More..</a>--}}
+            {{--<a href="/print/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">Print</a>--}}
+           {{----}}
+            {{--</li>--}}
+        {{--@endforeach--}}
+    {{----}}
+        {{--</div @endif>--}}
     </div>
 </div>
 @endsection

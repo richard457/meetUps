@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Meet\Meeting;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -19,6 +22,9 @@ Route::post('meeting','MeetingController@store');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('meetings',function(){
+    return Meeting::whereuser_id(Auth::id())->get();
+});
 Route::get('/more/{meetingId}', 'HomeController@more');
 Route::post('/more', 'HomeController@more');
 

@@ -1186,7 +1186,6 @@ module.exports = __webpack_require__(55);
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 __webpack_require__(13);
 
 window.Vue = __webpack_require__(38);
@@ -1201,6 +1200,7 @@ Vue.component('passport-clients', __webpack_require__(39));
 Vue.component('passport-authorized-clients', __webpack_require__(45));
 
 Vue.component('passport-personal-access-tokens', __webpack_require__(50));
+Vue.component('meetings', __webpack_require__(64));
 
 var app = new Vue({
     el: '#app'
@@ -43852,6 +43852,770 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(65)
+}
+var Component = __webpack_require__(4)(
+  /* script */
+  __webpack_require__(67),
+  /* template */
+  __webpack_require__(68),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  "data-v-3bdb37d2",
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "E:\\Confidential\\meetsUps\\resources\\assets\\js\\components\\Meeting\\Meeting.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Meeting.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3bdb37d2", Component.options)
+  } else {
+    hotAPI.reload("data-v-3bdb37d2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(66);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("453b48b2", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3bdb37d2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Meeting.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3bdb37d2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Meeting.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n.action-link[data-v-3bdb37d2] {\n    cursor: pointer;\n}\n.m-b-none[data-v-3bdb37d2] {\n    margin-bottom: 0;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            meetings: [],
+
+            createForm: {
+                errors: [],
+                name: '',
+                redirect: ''
+            },
+
+            editForm: {
+                errors: [],
+                name: '',
+                redirect: ''
+            }
+        };
+    },
+
+    /**
+     * Prepare the component (Vue 1.x).
+     */
+    ready: function ready() {
+        this.prepareComponent();
+    },
+
+
+    /**
+     * Prepare the component (Vue 2.x).
+     */
+    mounted: function mounted() {
+        this.prepareComponent();
+    },
+
+    methods: {
+        /**
+         * Prepare the component.
+         */
+        prepareComponent: function prepareComponent() {
+            this.getMeetings();
+
+            $('#additional-detail-modal').on('shown.bs.modal', function () {
+                $('#create-meeting-name').focus();
+            });
+
+            $('#modal-edit-meeting').on('shown.bs.modal', function () {
+                $('#edit-meeting-name').focus();
+            });
+        },
+        store: function store() {
+            this.persistmeeting('post', '/oauth/meetings', this.createForm, '#modal-create-meeting');
+        },
+        getMeetings: function getMeetings() {
+            var _this = this;
+
+            axios.get('meetings').then(function (response) {
+
+                _this.meetings = response.data;
+            });
+        },
+        edit: function edit(meeting) {
+            this.editForm.id = meeting.id;
+            this.editForm.title = meeting.title;
+            this.editForm.redirect = meeting.redirect;
+            $('#modal-edit-meeting').modal('show');
+        },
+
+        /**
+         * Update the meeting being edited.
+         */
+        update: function update() {
+            this.persistClient('put', '/meeting' + this.editForm.id, this.editForm, '#modal-edit-meeting');
+        },
+        agenda: function agenda(meeting) {
+            this.editForm.id = meeting.id;
+            $('#modal-agenda-meeting').modal('show');
+        },
+        showAdditionalDetailModal: function showAdditionalDetailModal() {
+            $('#additional-detail-modal').modal('show');
+        }
+    }
+});
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "panel panel-default col-12",
+    staticStyle: {
+      "min-width": "740px"
+    }
+  }, [_c('div', {
+    staticClass: "panel-body"
+  }, [(_vm.meetings.length === 0) ? _c('p', {
+    staticClass: "m-b-none"
+  }, [_vm._v("\n                you have no meeting yet\n            ")]) : _vm._e(), _vm._v(" "), (_vm.meetings.length > 0) ? _c('table', {
+    staticClass: "table table-borderless m-b-none"
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.meetings), function(meeting) {
+    return _c('tr', [_c('td', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_vm._v("\n                        " + _vm._s(meeting.id) + "\n                    ")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_vm._v("\n                        " + _vm._s(meeting.title) + "\n                    ")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_c('code', [_vm._v(_vm._s(meeting.organizer))])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_c('a', {
+      staticClass: "action-link",
+      on: {
+        "click": function($event) {
+          _vm.edit(meeting)
+        }
+      }
+    }, [_vm._v("\n                            Edit\n                        ")])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_c('a', {
+      staticClass: "action-link",
+      on: {
+        "click": function($event) {
+          _vm.agenda(meeting)
+        }
+      }
+    }, [_vm._v("\n                            Add agenda\n                        ")])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_c('a', {
+      staticClass: "action-link",
+      on: {
+        "click": function($event) {
+          _vm.agenda(meeting)
+        }
+      }
+    }, [_vm._v("\n                            Download report\n                        ")])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_c('a', {
+      staticClass: "action-link text-danger",
+      on: {
+        "click": function($event) {
+          _vm.destroy(meeting)
+        }
+      }
+    }, [_vm._v("\n                            Delete\n                        ")])])])
+  }))]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "additional-detail-modal",
+      "tabindex": "-1",
+      "role": "dialog"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog"
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [(_vm.createForm.errors.length > 0) ? _c('div', {
+    staticClass: "alert alert-danger"
+  }, [_vm._m(2), _vm._v(" "), _c('br'), _vm._v(" "), _c('ul', _vm._l((_vm.createForm.errors), function(error) {
+    return _c('li', [_vm._v("\n                            " + _vm._s(error) + "\n                        ")])
+  }))]) : _vm._e(), _vm._v(" "), _c('form', {
+    staticClass: "form-horizontal",
+    attrs: {
+      "role": "form"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-3 control-label"
+  }, [_vm._v("Name")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-7"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.createForm.name),
+      expression: "createForm.name"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "create-meeting-name",
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.createForm.name)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.store($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.createForm.name = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "help-block"
+  }, [_vm._v("\n                                    Something your users will recognize and trust.\n                                ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-3 control-label"
+  }, [_vm._v("Redirect URL")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-7"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.createForm.redirect),
+      expression: "createForm.redirect"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "redirect"
+    },
+    domProps: {
+      "value": (_vm.createForm.redirect)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.store($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.createForm.redirect = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "help-block"
+  }, [_vm._v("\n                                    Your application's authorization callback URL.\n                                ")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Close")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.store
+    }
+  }, [_vm._v("\n                    Create\n                ")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "modal-edit-meeting",
+      "tabindex": "-1",
+      "role": "dialog"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog"
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(3), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [(_vm.editForm.errors.length > 0) ? _c('div', {
+    staticClass: "alert alert-danger"
+  }, [_vm._m(4), _vm._v(" "), _c('br'), _vm._v(" "), _c('ul', _vm._l((_vm.editForm.errors), function(error) {
+    return _c('li', [_vm._v("\n                                " + _vm._s(error) + "\n                            ")])
+  }))]) : _vm._e(), _vm._v(" "), _c('form', {
+    staticClass: "form-horizontal",
+    attrs: {
+      "role": "form"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-3 control-label"
+  }, [_vm._v("Name")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-7"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.editForm.name),
+      expression: "editForm.name"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "edit-client-name",
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.editForm.name)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.update($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.editForm.name = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "help-block"
+  }, [_vm._v("\n                                    Something your users will recognize and trust.\n                                ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-3 control-label"
+  }, [_vm._v("Redirect URL")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-7"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.editForm.redirect),
+      expression: "editForm.redirect"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "redirect"
+    },
+    domProps: {
+      "value": (_vm.editForm.redirect)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.update($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.editForm.redirect = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "help-block"
+  }, [_vm._v("\n                                    Your application's authorization callback URL.\n                                ")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Close")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.update
+    }
+  }, [_vm._v("\n                        Save Changes\n                    ")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "modal-agenda-meeting",
+      "tabindex": "-1",
+      "role": "dialog"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog"
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Close")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.update
+    }
+  }, [_vm._v("\n                        Save Changes\n                    ")])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("Meeting Id#")]), _vm._v(" "), _c('th', [_vm._v("Title")]), _vm._v(" "), _c('th', [_vm._v("Organizer")]), _vm._v(" "), _c('th'), _vm._v(" "), _c('th')])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button ",
+      "data-dismiss": "modal",
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title"
+  }, [_vm._v("\n                    Create meeting\n                ")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('p', [_c('strong', [_vm._v("Whoops!")]), _vm._v(" Something went wrong!")])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button ",
+      "data-dismiss": "modal",
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title"
+  }, [_vm._v("\n                        Edit Client\n                    ")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('p', [_c('strong', [_vm._v("Whoops!")]), _vm._v(" Something went wrong!")])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-3bdb37d2", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

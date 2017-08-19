@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Meet\Meeting;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +17,7 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::middleware('auth:api')->get('/meetings', function (Request $request) {
+    return Meeting::whereuser_id(Auth::id())->get();
 });
