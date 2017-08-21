@@ -31,6 +31,10 @@ Vue.component(
     'meetings',
     require('./components/Meeting/Meeting.vue')
 );
+Vue.component(
+    'add-meeting',
+    require('./components/Meeting/AddMeeting.vue')
+);
 
 
 const app = new Vue({

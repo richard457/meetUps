@@ -8,6 +8,7 @@
     }
 </style>
 <template>
+
     <div>
         <div class="panel panel-default col-12" style="min-width:740px;">
            
