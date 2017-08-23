@@ -3,10 +3,16 @@
 @section('content')
 
 <div class="container" style="padding:1em;">
+
     <div class="row">
+    <div class="col-md-12" style="margin-left:-185px;">
+    <div class='pull-left'><a href='/attenda' class="btn btn-primary">Attendants info</a></div>
+    </div>
+   
         <div class="col-md-6" style="margin-left:-185px;">
+        
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Dashboard </div>
 
                 <div class="panel-body">
                     <form method="post" action="meeting">
@@ -19,12 +25,15 @@
                 </div>
             </div>
         </div>
+        
         <div class="col-md-7" style="min-width:750px;" @if(sizeof($meetings) >0)>
+        
         @foreach($meetings as $meet) 
             <li style="padding:1em;display:block;background:#fff;margin-bottom:10px;">
-            {{$meet->title}}
-            <a href="/more/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">More..</a>
-            <a href="/print/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">Print</a>
+           <span id="meetting"> {{$meet->title}} </span>
+            <a href="/agenda/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">agenda..</a>
+             <a href="/issues/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">issues..</a>
+            <a href="#" onclick="printMetting()" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">Print</a>
            
             </li>
         @endforeach
@@ -33,3 +42,16 @@
     </div>
 </div>
 @endsection
+
+<script>
+
+function printMetting(){
+var print       = document.getElementById('meetting').innerHTML;
+var currentFile = document.body.innerHTML;
+document.body.innerHTML     =print;
+window.print();
+document.body.innerHTML=currentFile;
+
+}
+
+</script>

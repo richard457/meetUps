@@ -15,11 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::post('meeting','MeetingController@store');
-
+Route::post('agenda/{meetingId}','AgendaController@store');
+Route::post('issues/{meetingId}','IssuesController@store');
+Route::post('attenda','AttendaController@store');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/more/{meetingId}', 'HomeController@more');
+Route::get('/agenda/{meetingId}', 'AgendaController@agenda');
+Route::get('/issues/{meetingId}', 'IssuesController@issues');
+Route::get('/attenda', 'AttendaController@attenda');
 Route::post('/more', 'HomeController@more');
 
 Route::post('/manipulate/','HomeController@manipulate');
