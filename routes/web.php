@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Meet\Meeting;
+
 Route::get('/', function () {
     return view('welcome');
 });
