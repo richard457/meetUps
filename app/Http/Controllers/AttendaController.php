@@ -9,16 +9,6 @@ use Meet\Attenda;
 class AttendaController extends Controller
 {
 
-   protected function validator(array $data)
-    {
-         return Validator::make($data, [
-            'fullname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:attendants',
-            'phone' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-        ]);
-    
-    }
      function store(Request $request){
 
 
@@ -32,13 +22,24 @@ class AttendaController extends Controller
              ]
            );
         return redirect()->back();
-        
+
     }
 
-     public function attenda()
+    public function attendees()
     {
         $attenda = Attenda::whereuser_id(Auth::id())->get();
-        
-      return view('attenda')->with('attenda',$attenda);
+
+        return view ('attenda')->with ('attenda', $attenda);
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make ($data, [
+            'fullname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:attendants',
+            'phone' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+        ]);
+
     }
 }

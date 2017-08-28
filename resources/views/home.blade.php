@@ -6,7 +6,8 @@
 
     <div class="row">
     <div class="col-md-12" style="margin-left:-185px;">
-    <div class='pull-left'><a href='/attenda' class="btn btn-primary">Attendants info</a></div>
+        <div class='pull-left offset-8'><a href='/attendees' class="btn btn-primary">List Attendees</a></div>
+        <br>
     </div>
    
         <div class="col-md-6" style="margin-left:-185px;">
@@ -31,8 +32,10 @@
         @foreach($meetings as $meet) 
             <li style="padding:1em;display:block;background:#fff;margin-bottom:10px;">
            <span id="meetting"> {{$meet->title}} </span>
-            <a href="/agenda/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">agenda..</a>
+                <a href="/agenda/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">Agenda..</a>
              <a href="/issues/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">issues..</a>
+                <a href="/invites/{{$meet->id}}" class="btn btn-info btn-sm pull-right"
+                   style="margin-right:1em;">Invite</a>
             <a href="#" onclick="printMetting()" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">Print</a>
            
             </li>
