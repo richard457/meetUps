@@ -17,7 +17,7 @@ use Meet\Meeting;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::post('meeting','MeetingController@store');
+Route::post('meeting',' @store');
 Route::post('agenda/{meetingId}','AgendaController@store');
 Route::post('issues/{meetingId}','IssuesController@store');
 Route::post('attenda','AttendaController@store');
