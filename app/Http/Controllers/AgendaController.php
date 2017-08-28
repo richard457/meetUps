@@ -11,15 +11,13 @@ class AgendaController extends Controller
 
      function store(Request $request){
 
-
         Agenda::create(
              [
-                        'title' =>$request['title'],
-                        'contents' => $request['contents'],
-                        'meeting_id' => $request['meeting_id'],
-                        'user_id' =>$request['user_id']
-             ]
-           );
+                'title' =>$request['title'],
+                'contents' => $request['contents'],
+                'meeting_id' => $request['meeting_id'],
+                'user_id' =>$request['user_id']
+             ]);
         return redirect()->back();
 
     }

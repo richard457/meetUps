@@ -28,6 +28,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/agenda/{meetingId}', 'AgendaController@agenda');
 Route::get('/issues/{meetingId}', 'IssuesController@issues');
+Route::post('/upload', 'InviteByCsvFile@inviteByCsv');
 Route::get ('/invites/{meetingId}', 'InvitesController@invites');
 Route::get ('/attendees', 'AttendaController@attendees');
 Route::post('/more', 'HomeController@more');

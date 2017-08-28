@@ -32,6 +32,7 @@ class InvitesController extends Controller
     {
         $invites = Attenda::whereuser_id (Auth::id ())->get ();
 
+
         return view ('invites')->with ('invites', $invites);
     }
 }
