@@ -7,13 +7,22 @@
 
                     <div class="col-md-12" @if(sizeof($invites)>0)>
 
-                        <form method="post" action="invites">
-                            {{ csrf_field() }}
+
                             <div class="panel panel-default">
                                 <div class="panel-heading"> List of invites </div>
 
                                 <div class="panel-body">
-                                    <button type="submit" class="btn btn-info btn-lg">Invite</button>
+
+                                    <form action="/upload" method="POST" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        <input type="file" name="scv">
+                                        <input type="hidden" name="type" value="csv">
+                                        <input type="submit" value="Upload">
+
+                                    </form>
+                                    <form method="post" action="invites">
+                                        <button type="submit" class="btn btn-info btn-lg">Invite</button>
+                                        {{ csrf_field() }}
                                     <table class="table">
                                         <thead>
                                             <tr>

@@ -39,6 +39,7 @@ class InvitesController extends Controller
 
     public function invites($meeting_id)
     {
+
         $invites = Attenda::whereuser_id (Auth::id ())->get ();
 
 
