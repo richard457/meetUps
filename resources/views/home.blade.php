@@ -33,6 +33,7 @@
            <span id="meetting"> {{$meet->title}} </span>
             <a href="/agenda/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">agenda..</a>
              <a href="/issues/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">issues..</a>
+              <a href="/invites/{{$meet->id}}" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">inviting..</a>
             <a href="#" onclick="printMetting()" class="btn btn-info btn-sm pull-right" style="margin-right:1em;">Print</a>
            
             </li>
