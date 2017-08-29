@@ -7,11 +7,12 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Invite people in meeting</div>
-                    <form method="post" action="/upload">
+                    <form method="post" action="/upload" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <input type="hidden" name="type" value="csv">
+                        <input type="hidden" name="meeting_id" value="{{$meeting_id}}">
                         <input type="file" name="csv">
-                        <button type="submit">Submit</button>
+                        <input type="submit"/>
                     </form>
 
                     <div class="panel-body">
