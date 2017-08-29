@@ -15,14 +15,19 @@
 
                                     <form method="post" action="/upload" enctype="multipart/form-data">
                                         {{ csrf_field() }}
-                                        <input type="hidden" name="type" value="csv">
                                         <input type="hidden" name="meeting_id" value="{{$meeting_id}}">
                                         <input type="file" name="csv">
-                                        {{--<button type="submit">Submit</button>--}}
-                                        <input type="submit"/>
-                                    </form>
+                            
+                                         <div class="fileinput btn btn-success btn-material-pink btn-raised" onclick="document.getElementById('chooseExecel').click()">
+                                            <i class="fa fa-upload"></i>
+                                            <span> Import Excel </span>
+                                            <input type="file"  type="hidden" name="type" value="csv" id="chooseExecel" onChange="chooseExecel()">
+                                            
+                                            </div>
+                                </form>
                                     <form method="post" action="invites">
-                                        <button type="submit" class="btn btn-info btn-lg">Invite</button>
+                                      <button type="submit" class="btn btn-info btn-material-pink btn-raised">Invite</button>
+
                                         {{ csrf_field() }}
                                     <table class="table">
                                         <thead>
@@ -63,7 +68,13 @@
 
         </div>
     </div>
-</div>
+@endsection
+<script>
+function chooseExecel(){
+    var files=document.getElementById('chooseExecel').files[0];
+    console.log(files);
+}
+</script>
+
 
 </div>
-@endsection
