@@ -1,33 +1,21 @@
-@extends('layouts.app')
+@extends('layouts.app') @section('content')
 
-@section('content')
+<div class="container" style="padding:1em;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body">
 
-    <div class="container" style="padding:1em;">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Invite people in meeting</div>
-                    <form method="post" action="/upload" enctype="multipart/form-data">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="type" value="csv">
-                        <input type="hidden" name="meeting_id" value="{{$meeting_id}}">
-                        <input type="file" name="csv">
-                        <input type="submit"/>
-                    </form>
+                    <div class="col-md-12" @if(sizeof($invites)>0)>
 
-                    <div class="panel-body">
+                        <form method="post" action="invites">
+                            {{ csrf_field() }}
+                            <div class="panel panel-default">
+                                <div class="panel-heading"> List of invites </div>
 
-                        <div class="col-md-12" @if(sizeof($invites) >0)>
-
-                            <form method="post" action="invites">
-                                {{ csrf_field() }}
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"> List of invites</div>
-
-                                    <div class="panel-body">
-
-                                        <table class="table">
-                                            <thead>
+                                <div class="panel-body">
+                                    <button type="submit" class="btn btn-info btn-lg">Invite</button>
+                                    <table class="table">
+                                        <thead>
                                             <tr>
                                                 <th>Invite</th>
                                                 <th>Email Address</th>
@@ -36,40 +24,35 @@
                                                 <th colspan="2">Option</th>
                                             </tr>
                                             @foreach($invites as $invites)
-                                                <tbody>
+                                            <tbody>
                                                 <tr>
+                                                    <td><input type='checkbox' name="check[]" value="{{$invites->id}}, {{$invites->email}}"></td>
                                                     <td>{{$invites->fullname}} </td>
                                                     <td>{{$invites->fullname}} </td>
                                                     <td>{{$invites->email}}
-                                                        <input id="email" type="email" placeholder="email address"
-                                                               class="form-control" name="email[]"
-                                                               value="{{$invites->email}}" required>
                                                     </td>
                                                     <td>{{$invites->phone}} </td>
                                                     <td>{{$invites->address}} </td>
-                                                    <td>
-                                                        <button type="submit" class="btn btn-info btn-lg">Invite
-                                                        </button>
-                                                    </td>
+
                                                 </tr>
-                                                </tbody>
-                                                @endforeach
-                                                </thead>
-                                        </table>
-                                    </div>
-
+                                            </tbody>
+                                            @endforeach
+                                        </thead>
+                                    </table>
                                 </div>
-                        </div>
-                        </form>
+
+                            </div>
+                    </div>
+                    </form>
 
 
-                    </div @endif>
-                </div>
+                </div @endif>
 
 
-            </div>
+
         </div>
     </div>
+</div>
 
-    </div>
+</div>
 @endsection
