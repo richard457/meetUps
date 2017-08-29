@@ -18,7 +18,7 @@
             <div class="panel-heading"> List of invites </div>
           
              <div class="panel-body">
-
+                     <button type="submit" class="btn btn-info btn-lg">Invite</button>
                     <table class="table">
                     <thead> <tr>
                         <th>Invite</th>
@@ -27,10 +27,10 @@
                            @foreach($invites as $invites) 
                         <tbody>
                         <tr>
+                         <td><input type='checkbox' name="check[]" value="{{$invites->id}}, {{$invites->email}}"></td>
                         <td>{{$invites->fullname}} </td>  <td>{{$invites->fullname}} </td> <td>{{$invites->email}} 
-                         <input id="email" type="email" placeholder="email address" class="form-control" name="email[]" value="{{$invites->email}}" required>
                          </td> <td>{{$invites->phone}} </td> <td>{{$invites->address}} </td>
-                        <td><button type="submit" class="btn btn-info btn-lg">Invite</button></td>
+                       
                         </tr>
                         </tbody>
                          @endforeach
@@ -54,3 +54,4 @@
        
 </div>
 @endsection
+
