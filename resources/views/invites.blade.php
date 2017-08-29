@@ -13,12 +13,13 @@
 
                                 <div class="panel-body">
 
-                                    <form action="/upload" method="POST" enctype="multipart/form-data">
+                                    <form method="post" action="/upload" enctype="multipart/form-data">
                                         {{ csrf_field() }}
-                                        <input type="file" name="scv">
                                         <input type="hidden" name="type" value="csv">
-                                        <input type="submit" value="Upload">
-
+                                        <input type="hidden" name="meeting_id" value="{{$meeting_id}}">
+                                        <input type="file" name="csv">
+                                        {{--<button type="submit">Submit</button>--}}
+                                        <input type="submit"/>
                                     </form>
                                     <form method="post" action="invites">
                                         <button type="submit" class="btn btn-info btn-lg">Invite</button>
@@ -48,6 +49,7 @@
                                             @endforeach
                                         </thead>
                                     </table>
+                                    </form>
                                 </div>
 
                             </div>
