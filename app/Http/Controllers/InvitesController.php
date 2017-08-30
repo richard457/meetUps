@@ -22,8 +22,8 @@ class InvitesController extends Controller
            if(!empty($val)){
              $exp=explode(',',$val);
 
-               Mail::to($exp[1])->send(new InviteMember('<a href="http://localhost:8000/invited/2/'.$exp[0].'></a>'));
-               $insert[] = ['meeting_id' => '2','user_id'=>Auth::user()->id,'invitee_email' => $exp[1]];
+               Mail::to($exp[1])->send(new InviteMember('<a href="http://localhost:8000/invited/2/'.$exp[0].'"></a>'));
+               $insert[] = ['meeting_id' => 2,'user_id'=>Auth::user()->id,'invitee_email' => $exp[1]];
 
 
            }

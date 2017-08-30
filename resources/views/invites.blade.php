@@ -18,7 +18,14 @@
             <div class="panel-heading"> List of invites </div>
           
              <div class="panel-body">
-                     <button type="submit" class="btn btn-info btn-lg">Invite</button>
+                     <button type="submit" class="btn btn-info btn-material-pink btn-raised">Invite</button>
+
+        <div class="fileinput btn btn-success btn-material-pink btn-raised" onclick="document.getElementById('chooseExecel').click()">
+            <i class="fa fa-upload"></i>
+            <span> Import Excel </span>
+            <input type="file" id="chooseExecel" onChange="chooseExecel()">
+            
+            </div>
                     <table class="table">
                     <thead> <tr>
                         <th>Invite</th>
@@ -53,4 +60,11 @@
 
     </div>
 @endsection
+<script>
+function chooseExecel(){
+    var files=document.getElementById('chooseExecel').files[0];
+    console.log(files);
+}
+</script>
+
 
