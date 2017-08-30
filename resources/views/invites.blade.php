@@ -42,16 +42,15 @@
         </div>
      </form>
 
-       
-    
-        </div @endif>
-    </div>
 
-                    
+                    </div @endif>
                 </div>
+
+
             </div>
         </div>
-       
-</div>
+    </div>
+
+    </div>
 @endsection
 

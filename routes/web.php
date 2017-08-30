@@ -17,10 +17,10 @@ use Meet\Meeting;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::post('meeting','MeetingController@store');
+Route::post('meeting',' @store');
 Route::post('agenda/{meetingId}','AgendaController@store');
 Route::post('issues/{meetingId}','IssuesController@store');
-Route::post('invites/{meetingId}','InvitesController@store');
+Route::post ('invites/{meetingId}', 'InvitesController@store');
 Route::post('attenda','AttendaController@store');
 
 Auth::routes();
@@ -28,8 +28,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/agenda/{meetingId}', 'AgendaController@agenda');
 Route::get('/issues/{meetingId}', 'IssuesController@issues');
-Route::get('/invites/{meetingId}', 'InvitesController@invites');
-Route::get('/attenda', 'AttendaController@attenda');
+Route::post('/upload', 'InviteByCsvFile@inviteByCsv');
+Route::get ('/invites/{meetingId}', 'InvitesController@invites');
+Route::get ('/attendees', 'AttendaController@attendees');
 Route::post('/more', 'HomeController@more');
 
 Route::post('/manipulate/','HomeController@manipulate');

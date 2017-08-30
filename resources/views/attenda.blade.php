@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-6" >
             <div class="panel panel-default">
-                <div class="panel-heading">Registering Attenda info</div>
+                <div class="panel-heading">Register new Attendee</div>
 
                 <div class="panel-body">
                     <form method="post" action="attenda">

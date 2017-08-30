@@ -41,8 +41,8 @@
                                 @endif
                             </div>
                         </div>
-                        <input class="form-control" name="meeting_id" value="1"><br>
-                        <input class="form-control" type="hidden" value="{{Auth::id()}}" name="user_id" ><br>
+                        <input class="form-control" type="hidden" name="meeting_id" value="{{$meeting_id}}"><br>
+                        <input class="form-control" type="hidden" value="{{Auth::id()}}" name="user_id"><br>
                         <button type="submit" class="btn btn-info btn-lg">Save</button>
                     </form>
                     
