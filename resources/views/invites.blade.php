@@ -15,14 +15,13 @@
 
                                     <form method="post" action="/upload" enctype="multipart/form-data">
                                         {{ csrf_field() }}
-                                        <input type="hidden" name="type" value="csv">
                                         <input type="hidden" name="meeting_id" value="{{$meeting_id}}">
                                         <input type="file" name="csv">
                             
                                          <div class="fileinput btn btn-success btn-material-pink btn-raised" onclick="document.getElementById('chooseExecel').click()">
                                             <i class="fa fa-upload"></i>
                                             <span> Import Excel </span>
-                                            <input type="file" id="chooseExecel" onChange="chooseExecel()">
+                                            <input type="file"  type="hidden" name="type" value="csv" id="chooseExecel" onChange="chooseExecel()">
                                             
                                             </div>
                                 </form>
@@ -69,7 +68,6 @@
 
         </div>
     </div>
-<<<<<<< HEAD
 @endsection
 <script>
 function chooseExecel(){
@@ -78,9 +76,5 @@ function chooseExecel(){
 }
 </script>
 
-=======
-</div>
->>>>>>> 9e927b94a8d6ec8616bbeff35d009d405598ada6
 
 </div>
-@endsection
