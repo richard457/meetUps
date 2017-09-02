@@ -16,7 +16,7 @@ class AgendaController extends Controller
                 'title' =>$request['title'],
                 'contents' => $request['contents'],
                 'meeting_id' => $request['meeting_id'],
-                'user_id' =>$request['user_id']
+                 'user_id' => Auth::id ()
              ]);
         return redirect()->back();
 
@@ -24,9 +24,7 @@ class AgendaController extends Controller
 
     public function agenda($meeting_id)
     {
-
         $agenda = Agenda::whereuser_id(Auth::id())->wheremeeting_id(1)->get();
-
         return view ('agenda')->with ('agenda', $agenda)->with ('meeting_id', $meeting_id);
     }
 
