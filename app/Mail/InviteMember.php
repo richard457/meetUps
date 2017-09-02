@@ -28,8 +28,7 @@ class InviteMember extends Mailable
         return $this->from('richie@streamupbox.com')
 
             ->view('emails.invitees.invite')->with([
-                'orderName' => $this->link,
-                'orderPrice' => $this->link,
+                'invite_link' => $this->link
             ]);
     }
 }

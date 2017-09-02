@@ -18,7 +18,8 @@
                                         <input type="hidden" name="type" value="csv">
                                         <input type="hidden" name="meeting_id" value="{{$meeting_id}}">
                                         <input type="file" name="csv">
-                                        {{--<button type="submit">Submit</button>--}}
+
+
                                         <input type="submit"/>
                                     </form>
                                     <form method="post" action="invites">

@@ -26,7 +26,7 @@
                             </div>
                         </div>
                             <div class="form-group{{ $errors->has('contents') ? ' has-error' : '' }}">
-                            <label for="contents" class="col-md-4 control-label">Contents</label>
+                                <label for="contents" class="col-md-4 control-label">Description</label>
 
                             <div class="col-md-6">
                                 <input id="contents" type="text" placeholder="contents of agenda" class="form-control" name="contents" value="{{ old('contents') }}" required>

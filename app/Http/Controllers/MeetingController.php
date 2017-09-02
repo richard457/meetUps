@@ -13,8 +13,8 @@ class MeetingController extends Controller
         Meeting::create($request->all());
         return redirect()->back();
 
-        //bashobora kongeramo agenda ()
-        //bashobora no guhindura itariki inama izabera
+        //bashobora kongeramo agenda (ok)
+        //bashobora no guhindura itariki inama izabera (ok)
         //igihe kinama cyarangiye ntawahindura ikintu kunama.
         //gutanga alert mbere yinama
         //add SMS by twillio 20$ to alert people.
