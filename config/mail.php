@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+    'port' => 2525,
 
     /*
     |--------------------------------------------------------------------------
@@ -55,10 +55,10 @@ return [
     |
     */
 
-    'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
-    ],
+      "from" => array(
+      "address" => "info@meetup.com",
+      "name" => "MeetUp"
+        ),
 
     /*
     |--------------------------------------------------------------------------
@@ -71,7 +71,7 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    'encryption' =>'tls',
 
     /*
     |--------------------------------------------------------------------------
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => '48447a88333091f3f',
 
-    'password' => 'b2276762fe2525',
+"username" => "476f8372a4d7fa",
+ "password" => "e6495bbed84822",
 
     /*
     |--------------------------------------------------------------------------
@@ -99,8 +99,8 @@ return [
     |
     */
 
-    'sendmail' => '/usr/sbin/sendmail -bs',
-
+  "sendmail" => "/usr/sbin/sendmail -bs",
+  "pretend" => false,
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings

@@ -20,18 +20,15 @@ class InvitesController extends Controller
         foreach ($request->get ('check') as $key => $val) {
             if (!empty($val)) {
                 $exp = explode (',', $val);
+               if (!empty($exp)) {
+                
+                 Invitee::create(['meeting_id' =>trim($exp[2],''), 'user_id' => Auth::user ()->id, 'invitee_email' => $exp[1]]);
+               }
 
-                Mail::to ($exp[1])->send (new InviteMember('<a href="http://localhost:8000/accept/invitation/' . $exp[0] . '></a>'));
-                $insert[] = ['meeting_id' => '2', 'user_id' => Auth::user ()->id, 'invitee_email' => $exp[1]];
-
-
+                Mail::to ($exp[1])->send (new InviteMember('http://localhost:8000/accept/invitation/' .  $exp[0].'/'.trim($exp[2],'')) );
             }
         }
-
-        if (!empty($insert)) {
-
-            Invitee::create ($insert);
-        }
+      
         return redirect ()->back ();
 
     }
