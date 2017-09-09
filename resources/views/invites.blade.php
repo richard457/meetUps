@@ -48,7 +48,7 @@
                                             @foreach($invites as $invites)
                                             <tbody>
                                                 <tr>
-                                                    <td><input type='checkbox' name="check[]" value="{{$invites->id}}, {{$invites->email}}"></td>
+                                                    <td><input type='checkbox' name="check[]" value="{{$invites->id}},{{$invites->email}},{{$meeting_id}}"></td>
                                                     <td>{{$invites->fullname}} </td>
                                                     <td>{{$invites->fullname}} </td>
                                                     <td>{{$invites->email}}
