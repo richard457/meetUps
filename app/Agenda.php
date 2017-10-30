@@ -13,4 +13,8 @@ class Agenda extends Model
 {
     protected $table='agenda';
     protected $fillable=['title','contents','meeting_id','user_id'];
+
+    public function comments(){
+        return $this->hasMany("Meet\Comment");
+    }
 }

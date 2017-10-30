@@ -4,7 +4,7 @@
     <div class="container" style="padding:1em;">
         <div class="row">
             <div class="col-md-12" style="margin-left:-185px;">
-                <div class='pull-left offset-8'><a href='/attendees' class="btn btn-primary">List Attendees</a></div>
+                <div class='pull-left offset-8'><a href='/attendees' class="btn btn-primary">Members</a></div>
                 <br>
             </div>
             <div class="col-md-6" style="margin-left:-185px;">
@@ -33,8 +33,8 @@
                            style="margin-right:1em;">issues..</a>
                         <a href="/invites/{{$meet->id}}" class="btn btn-info btn-sm pull-right"
                            style="margin-right:1em;">Invite</a>
-                        <a href="#" onclick="printMetting()" class="btn btn-info btn-sm pull-right"
-                           style="margin-right:1em;">Print</a>
+                        <!-- <a href="#" onclick="printMetting()" class="btn btn-info btn-sm pull-right"
+                           style="margin-right:1em;">Print</a> -->
                     </li>
                 @endforeach
 

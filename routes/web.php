@@ -32,10 +32,13 @@ Route::post('/upload', 'InviteByCsvFile@inviteByCsv');
 Route::get ('/invites/{meetingId}', 'InvitesController@invites');
 
 Route::get ('/accept/invitation/{invitingId}/{meeting_id}', 'InvitesMeetingController@meetingstatement');
-Route::post ('/accept/invitation/{invitingId}/comment/posts', 'InvitesMeetingController@store');
+Route::get ('/agendComment/{agendaId}/{invitedId}/{agendatitle}', 'InvitesMeetingController@singleAgenda');
+
+
+Route::post ('comments', 'InvitesMeetingController@store');
 
 Route::get ('/accept/invitation/{ofMettingId}', 'InvitesController@acceptInvitation');
 Route::get ('/attendees', 'AttendaController@attendees');
 Route::post('/more', 'HomeController@more');
 
-Route::post('/manipulate/','HomeController@manipulate');
+//Route::post('/manipulate/','HomeController@manipulate');
