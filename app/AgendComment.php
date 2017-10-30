@@ -14,6 +14,9 @@ class AgendComment extends Model
     protected $table='agendcomment';
     protected $fillable=['agender_id','commenter','comments'];
 
+    public function getCreatedAt($value){
+        return \Carbon\Carbon::parse($value)->format('d.m.Y.');
+    }
     public function agenda(){
         return $this->belongsTo("Meet\Agenda");
     }

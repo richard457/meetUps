@@ -25,8 +25,8 @@
                 <div class="col-sm-8">
                     <div class="panels panel-default">
                         <div class="panel-heading">
-                            <strong>myusername</strong>
-                            <span class="text-muted">commented 5 days ago</span>
+                            <strong>{{$comment->fullname}}</strong>
+                            <span class="text-muted">commented {{ date('F d, Y', strtotime($comment->created_at)) }}</span>
                         </div>
                         <div class="panel-body">
                             {{$comment->comments}}
@@ -47,7 +47,7 @@
     <div class="panel-footer" style="height:100px">
         <form method="POST" action="/comments">
             {{ csrf_field() }}
-            <input type="text" name="agenda" hidden="hidden" value="{{$comment->id}}">
+            <input type="text" name="agenda" hidden="hidden" value="{{$agendaid}}">
             <input type="text" name="commenter" hidden="hidden" value="{{$invitingId}}">
 
             <textarea type="text" placeholder="Type you comments ...." rows="4" class="form-control col-sm-12 col-md-10 col-lg-10" name="comment"

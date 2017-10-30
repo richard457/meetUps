@@ -31,11 +31,14 @@ Route::get('/issues/{meetingId}', 'IssuesController@issues');
 Route::post('/upload', 'InviteByCsvFile@inviteByCsv');
 Route::get ('/invites/{meetingId}', 'InvitesController@invites');
 
-Route::get ('/accept/invitation/{invitingId}/{meeting_id}', 'InvitesMeetingController@meetingstatement');
+Route::get ('/meeting/agenda/{invitingId}/{meeting_id}', 'InvitesMeetingController@meetingstatement');
+Route::get ('/accept/invitation/{invitingId}/{meeting_id}', 'InvitesMeetingController@acceptInvitation');
+
 Route::get ('/agendComment/{agendaId}/{invitedId}/{agendatitle}', 'InvitesMeetingController@singleAgenda');
 
 
 Route::post ('comments', 'InvitesMeetingController@store');
+Route::post ('accepted', 'InvitesMeetingController@accepted');
 
 Route::get ('/accept/invitation/{ofMettingId}', 'InvitesController@acceptInvitation');
 Route::get ('/attendees', 'AttendaController@attendees');
