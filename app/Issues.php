@@ -12,5 +12,5 @@ use Illuminate\Database\Eloquent\Model;
 class Issues extends Model
 {
     protected $table='issues';
-    protected $fillable=['meeting_id','user_id','person_in_charge_name','issueInDetails'];
+    protected $fillable=['meeting_id','user_id','person_in_charge_name','issueInDetails','backgrandcolor'];
 }

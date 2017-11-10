@@ -14,14 +14,22 @@ use Meet\Invitee;
 use Meet\AgendComment;
 use Meet\Mail\InviteMember;
 use DB;
+use Session;
 class InvitesMeetingController extends Controller
 {
 
 
     public function acceptInvitation($invitingId,$meeting_id)
     {
-
-     return view ('acceptInvitation')->with ('invitingId', $invitingId)->with ('meeting_id', $meeting_id);
+        $member_email = Attenda::whereid($invitingId)->first()->email;
+        $Invitee      =  Invitee::wheremeeting_id($meeting_id)->where('invitee_email',$member_email)->first()->accepted_invitation;
+     if($Invitee==true){
+        return redirect()->to('/meeting/agenda/'.$invitingId.'/'.$meeting_id);
+        
+     }else{
+        return view ('acceptInvitation')->with ('invitingId', $invitingId)->with ('meeting_id', $meeting_id);
+     }
+      
    
     }
     
@@ -47,12 +55,12 @@ class InvitesMeetingController extends Controller
    
     }
     public function singleAgenda($id,$invitedId,$agendatitle){
-       // $comment = AgendComment::where('agender_id', $id)->get();
+        $meeting_id   = Agenda::where('id',$id)->first()->meeting_id;
         $comment =  DB::table('attendants')
         ->join('agendcomment', 'attendants.id', '=', 'agendcomment.commenter')
         ->where('agender_id', $id)
         ->get();
-        return view ('agendaComment')->with ('agendaComment', $comment)->with ('agendaid', $id)->with ('invitingId', $invitedId)->with('agendatitle',$agendatitle);
+        return view ('agendaComment')->with ('agendaComment', $comment)->with ('agendaid', $id)->with ('invitingId', $invitedId)->with('agendatitle',$agendatitle)->with('meetingid',$meeting_id);
     }
 
      public function store(Request $request)
@@ -63,6 +71,7 @@ class InvitesMeetingController extends Controller
                         $AgendComment->commenter = $request['commenter'];
                         $AgendComment->comments =   $request['comment']; 
                         $AgendComment->save ();
+                        Session::flash('alert-success','successfully saved.');
                   return redirect()->back();
                   
             

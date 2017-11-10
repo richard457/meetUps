@@ -14,4 +14,10 @@ class Meeting extends Model
     }
     
 
+    ///Get the user owner of meeting
+    public function users()
+    {
+        return $this->belongsTo('Meet\User');
+    }
+
 }

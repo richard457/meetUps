@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Meet\Attenda;
 use Meet\Invitee;
 use Meet\Mail\InviteMember;
-
+use Session;
 class InviteByCsvFile extends Controller
 {
     public function inviteByCsv(Request  $request){
@@ -35,8 +35,11 @@ class InviteByCsvFile extends Controller
                         Mail::to ($v['email'])->send (new InviteMember('http://localhost:8000/accept/invitation/' . $request->get ('meeting_id') . '/' . $request->get ('meeting_owner')));
                     }
                 }
-
+                Session::flash('alert-success','successfully sent and saved.');
                 return redirect ()->back ();
+        }else{
+            Session::flash('alert-danger','this file was not imported and sent.');
+            return redirect ()->back ();
         }
     }
     }

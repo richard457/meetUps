@@ -10,7 +10,8 @@ use Meet\Attenda;
 use Meet\Http\Requests;
 use Meet\Invitee;
 use Meet\Mail\InviteMember;
-
+use Session;
+use DB;
 class InvitesController extends Controller
 {
 
@@ -28,7 +29,7 @@ class InvitesController extends Controller
                 Mail::to ($exp[1])->send (new InviteMember('http://localhost:8000/accept/invitation/' .  $exp[0].'/'.trim($exp[2],'')) );
             }
         }
-      
+        Session::flash('alert-success','successfully sent and saved.');
         return redirect ()->back ();
 
     }
@@ -39,13 +40,29 @@ class InvitesController extends Controller
         return view ('accept')->with ('meeting_id', $meetingId);
     }
 
-    public function invites($meeting_id)
+    public function invites($meeting_id,$meetingtitle)
     {
 
 
         $invites = Attenda::whereuser_id (Auth::id ())->get ();
 
 
-        return view ('invites')->with ('invites', $invites)->with ('meeting_id', $meeting_id);
+        return view ('invites')->with ('invites', $invites)->with ('meeting_id', $meeting_id)->with("meetingtitle", $meetingtitle)->with ('acceptinvitation',$this->appendOrAppend($meeting_id,1))->with ('appendinginvitation',$this->appendOrAppend($meeting_id,0));
     }
+
+    public function appendOrAppend($meeting_id,$key)
+    {
+
+        $acceptinvitation=DB::table('invitees')
+        ->join('meetings', 'invitees.meeting_id', '=', 'meetings.id')
+        ->join('attendants', 'invitees.invitee_email', '=', 'attendants.email')
+        ->where('meeting_id','=', $meeting_id)->where('accepted_invitation', $key)->groupBy('invitee_email')->get();
+        
+        Log::info($acceptinvitation);
+        return $acceptinvitation; 
+     }
+
+     
+
+    
 }

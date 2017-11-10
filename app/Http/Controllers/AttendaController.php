@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 use Meet\Attenda;
-
+use Session;
 class AttendaController extends Controller
 {
 
@@ -21,15 +21,16 @@ class AttendaController extends Controller
                         'user_id' =>$request['user_id']
              ]
            );
+           Session::flash('alert-success','successfully saved.');
         return redirect()->back();
 
     }
 
-    public function attendees()
+    public function members()
     {
-        $attenda = Attenda::whereuser_id(Auth::id())->get();
+        $members = Attenda::whereuser_id(Auth::id())->get();
 
-        return view ('attenda')->with ('attenda', $attenda);
+        return view ('members')->with ('members', $members);
     }
 
     protected function validator(array $data)
@@ -42,4 +43,23 @@ class AttendaController extends Controller
         ]);
 
     }
+    function member_delete(Request $request){
+
+        $member=Attenda::find($request->get('memberid'));
+        $member->delete();
+        Session::flash('alert-success','successfully Deleted.');
+        return redirect()->back();
+    }
+    function editmembers(Request $request){
+        
+                $member=Attenda::find($request->get('memberid'));
+                $member->fullname=$request['fullname'];
+                $member->email=$request['email'];
+                $member->phone=$request['phone'];
+                $member->address=$request['address'];
+                $member->save();
+                Session::flash('alert-success','successfully Edited.');
+                return redirect()->back();
+            }
+    
 }
