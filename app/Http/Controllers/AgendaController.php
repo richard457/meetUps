@@ -26,7 +26,7 @@ class AgendaController extends Controller
 
     public function agenda($meeting_id,$meetingtitle)
     {
-        $agenda = Agenda::whereuser_id(Auth::id())->wheremeeting_id($meeting_id)->get();
+        $agenda = Agenda::whereuser_id(Auth::id())->wheremeeting_id($meeting_id)->orderby('id','desc')->get();
         return view ('agenda')->with ('agenda', $agenda)->with ('meeting_id', $meeting_id)->with("meetingtitle", $meetingtitle);
     }
 

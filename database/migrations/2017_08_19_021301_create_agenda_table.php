@@ -15,11 +15,18 @@ class CreateAgendaTable extends Migration
     {
         Schema::create('agenda', function (Blueprint $table) {
             $table->increments('id');
-            $table->string ('title');
-            $table->string ('contents');
+            $table->string ('agenda')->nullable();
+            $table->string ('matters')->nullable();
+            $table->string ('action')->nullable();
+            $table->string ('responsible')->nullable();
+            $table->string ('deadline')->nullable();
             $table->string ('meeting_id');
+            $table->integer('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->enum ('status', ['appending', 'rejected', 'approved'])->default ('appending');
             $table->timestamps();
         });
+
     }
 
     /**

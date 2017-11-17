@@ -1,26 +1,40 @@
 @extends('layouts.app') @section('content')
 
 <div class="container-fluid">
-    <div class="row bg-title">
-        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-            <h4 class="page-title">Dashboard > Meeting > Invited</h4>
-        </div>
-        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-    <div class="row bg-title" style="margin-top:-1.7%">
-        <div class="col-lg-1 col-sm-12 col-md-1 col-xs-12">
+    @if(sizeof($meeting) >0)
+    <div class="row bg-title">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
             <div class="user-img">
                 <img src="{{ asset('images/meeting.png') }}" style="margin-left:10%;width:70px" alt="user" class="img-circle">
             </div>
         </div>
-        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-
-            {{$meetingtitle}}
+        <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5" style="margin-top:1.5%">
+            <span>{{$meeting->title}}</span>
+            <br />
+            <span class="time">
+                <i class="fa fa-clock-o" aria-hidden="true"></i> {{ date('F d, Y h:i:sa', strtotime($meeting->date)) }}</span>, at
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            <span class="text-success">{{ $meeting->venue }}</span>
         </div>
-        <!-- /.col-lg-12 -->
+        <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6" style="margin-top:0.6%">
+        <ul class="nav navbar-top-links navbar-right pull-left">
+        
+                    <li><a href="/_meeting/{{$meeting->id}}" style="color: #54667a;font-size:18px;font-weight:400">Home</a></li>
+                    <li><a href="/_meeting/agenda/{{$meeting->id}}" style="color: #54667a;font-size:18px;font-weight:400">Agenda</a></li>
+                    <li><a href="/_meeting/board/{{$meeting->id}}" style="color: #54667a;font-size:18px;font-weight:400">Meeting board</a></li>
+                    <li><a href="/_meeting/invite/{{$meeting->id}}" style="color: #54667a;font-size:18px;font-weight:400">Invite</a></li>
+                    <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #54667a;font-size:18px;font-weight:400">Attendance</a>
+                    <ul class="dropdown-menu" style="margin-top:-67%">
+                            <li><a href="/_meeting/new_attenda/{{$meeting->id}}">New Attendance</a></li>
+                            <li><a href="/_meeting/list_attenda/{{$meeting->id}}">Attendance List</a></li>
+                                                            
+                        </ul>
+                    </li>
+                    <li><a href="/_meeting/reports/{{$meeting->id}}" style="color: #54667a;font-size:18px;font-weight:400">Reports</a></li>
+                    
+            </ul>
+        </div>
     </div>
 
     <div class="row">
@@ -71,8 +85,7 @@
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div role="tabpanel" class="tab-pane active" id="home">
-
-                                                    <form method="post" action="/invites">
+                                                    <form class="form-inline" id="testForm" role="form" method="POST" action="{{action('InvitesController@store')}}">
                                                         <button type="submit" class="col-md-12 btn btn-info btn-material-pink btn-raised">Invite
                                                         </button>
 
@@ -81,23 +94,26 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>Invite</th>
+                                                                    <th>Name</th>
                                                                     <th>Email Address</th>
                                                                     <th>Other address</th>
                                                                     <th>Phone number</th>
-                                                                    <th colspan="2">Option</th>
+                                                                    <th>Position</th>
                                                                 </tr>
                                                                 @foreach($invites as $invites)
                                                                 <tbody>
+                                                               
                                                                     <tr>
                                                                         <td>
-                                                                            <input type='checkbox' name="check[]" value="{{$invites->id}},{{$invites->email}},{{$meeting_id}}">
+                                                                            <input type='checkbox' name="check[]" value="{{$invites->id}},{{$invites->email}},{{$meeting->id}}">
                                                                         </td>
-                                                                        <td>{{$invites->fullname}} </td>
                                                                         <td>{{$invites->fullname}} </td>
                                                                         <td>{{$invites->email}}
                                                                         </td>
                                                                         <td>{{$invites->phone}} </td>
                                                                         <td>{{$invites->address}} </td>
+
+                                                                        <td>{{$invites->position}} </td>
 
                                                                     </tr>
                                                                 </tbody>
@@ -113,7 +129,7 @@
                                                 <div role="tabpanel" class="tab-pane" id="profile">
                                                     <form method="post" action="/upload" enctype="multipart/form-data">
                                                         {{ csrf_field() }}
-                                                        <input type="hidden" name="meeting_id" value="{{$meeting_id}}">
+                                                        <input type="hidden" name="meeting_id" value="{{$meeting->id}}">
                                                         <input type="file" name="csv" class="col-md-3">
                                                         <button type="submit" class="col-md-3 btn btn-info btn-material-pink btn-raised">Invite
                                                         </button>
@@ -168,8 +184,7 @@
                                                                                 </button>
                                                                             </div>
                                                                             <a href="javascript:void(0)">
-                                                                                <img src="{{ asset('images/user.png') }}" alt="user-img"
-                                                                                    class="img-circle">
+                                                                                <img src="{{ asset('images/user.png') }}" alt="user-img" class="img-circle">
                                                                                 <span>{{$members->fullname}} > {{$members->phone}}
                                                                                     <small class="text-success">{{$members->address}}</small>
                                                                                 </span>
@@ -205,8 +220,8 @@
 
                                             </div>
                                             <div role="tabpanel" class="tab-pane" id="appendinginvitaion">
-                                               
-                                            <div class="col-md-12 col-lg-8 col-lg-offset-2 col-sm-12" style="margin-left:140px">
+
+                                                <div class="col-md-12 col-lg-8 col-lg-offset-2 col-sm-12" style="margin-left:140px">
                                                     @if(sizeof($appendinginvitation) >0)
                                                     <div class="panel">
                                                         <div class="sk-chat-widgets">
@@ -226,8 +241,7 @@
                                                                                 </button>
                                                                             </div>
                                                                             <a href="javascript:void(0)">
-                                                                                <img src="{{ asset('images/user.png') }}" alt="user-img"
-                                                                                    class="img-circle">
+                                                                                <img src="{{ asset('images/user.png') }}" alt="user-img" class="img-circle">
                                                                                 <span>{{$members->fullname}} > {{$members->phone}}
                                                                                     <small class="text-success">{{$members->address}}</small>
                                                                                 </span>
@@ -260,7 +274,7 @@
 
                                                     @endif
                                                 </div>
-                                               
+
                                             </div>
                                         </div>
                                     </div>
@@ -281,6 +295,7 @@
 
 
         </div>
+        @endif
     </div>
     @endsection
     <script>

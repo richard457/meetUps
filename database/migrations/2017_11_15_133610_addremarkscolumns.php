@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Addcolorinissues extends Migration
+class Addremarkscolumns extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class Addcolorinissues extends Migration
      */
     public function up()
     {
-        Schema::table('issues', function (Blueprint $table) {
-            
-                             $table->string('backgrandcolor');
-                 });
+        Schema::table('meetings', function (Blueprint $table) {
+            $table->string('remarks')->nullable();
+        });
     }
 
     /**
@@ -26,8 +25,8 @@ class Addcolorinissues extends Migration
      */
     public function down()
     {
-        Schema::table('issues', function (Blueprint $table) {
-            $table->string('backgrandcolor');
+        Schema::table('meetings', function (Blueprint $table) {
+            $table->dropColumn('remarks');
         });
     }
 }

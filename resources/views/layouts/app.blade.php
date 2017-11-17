@@ -31,6 +31,8 @@
     <!-- color CSS -->
     <link href="{{ asset('/styles/css/colors/default.css') }}" id="theme" rel="stylesheet">
     <link href="{{ asset('/styles/css/font-awesome.min.css') }}" id="theme" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+
 
 </head>
 
@@ -98,6 +100,7 @@
                 <div  style="margin-left:0%" class="col-lg-12 col-lg-offset-6 col-md-12 col-md-offset-6 col-sm-12 col-xs-12">
                    
                <!-- /.col-lg-12 -->
+            
                @yield('content')
 
                 </div>
@@ -144,7 +147,7 @@
     <!-- Page Content -->
     <!-- ============================================================== -->
     <div id="page-wrapper">
-       
+     
     @yield('content')
       
         <!-- /.container-fluid -->
@@ -189,7 +192,14 @@
     <!-- Custom Theme JavaScript -->
     <script src="{{ asset('/styles/js/custom.min.js') }}"></script>
     <script src="{{ asset('/styles/js/dashboard1.js') }}"></script>
+    <script src="{{ asset('/styles/js/colResizable.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/styles/js/FileSaver.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/styles/js/jquery.wordexport.js') }}"></script>
     <script src="{{ asset('/styles/plugins/bower_components/toast-master/js/jquery.toast.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+  
 </body>
 
 </html>

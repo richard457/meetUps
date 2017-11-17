@@ -13,6 +13,7 @@ use Meet\Agenda;
 use Meet\Invitee;
 use Meet\AgendComment;
 use Meet\Mail\InviteMember;
+use Meet\Member;
 use DB;
 use Session;
 class InvitesMeetingController extends Controller
@@ -21,7 +22,7 @@ class InvitesMeetingController extends Controller
 
     public function acceptInvitation($invitingId,$meeting_id)
     {
-        $member_email = Attenda::whereid($invitingId)->first()->email;
+        $member_email = Member::whereid($invitingId)->first()->email;
         $Invitee      =  Invitee::wheremeeting_id($meeting_id)->where('invitee_email',$member_email)->first()->accepted_invitation;
      if($Invitee==true){
         return redirect()->to('/meeting/agenda/'.$invitingId.'/'.$meeting_id);
@@ -35,7 +36,7 @@ class InvitesMeetingController extends Controller
     
     public function accepted(Request $request)
     {
-        $member_email = Attenda::whereid($request->get('invitingId'))->first()->email;
+        $member_email = Member::whereid($request->get('invitingId'))->first()->email;
          $Invitee =  Invitee::wheremeeting_id($request->get('meeting_id'))->where('invitee_email',$member_email)->where('accepted_invitation',0)->first();
                         $Invitee->accepted_invitation =true;
                         $Invitee->save ();
@@ -50,8 +51,9 @@ class InvitesMeetingController extends Controller
     
        $meetings = Meeting::whereid($meeting_id)->get();
        $agenda   = Agenda::wheremeeting_id($meeting_id)->get();
+       $comments=$this->getComments($meeting_id);
      
-     return view ('meetingstatement')->with ('meetingstatement', $meetings)->with ('meetingAgender', $agenda)->with ('invitingId', $invitingId)->with ('meeting_id', $meeting_id);
+     return view ('meetingstatement')->with ('meetingstatement', $meetings)->with ('meetingAgender', $agenda)->with ('invitingId', $invitingId)->with ('meeting_id', $meeting_id)->with('agendaComment',$comments);
    
     }
     public function singleAgenda($id,$invitedId,$agendatitle){
@@ -67,7 +69,7 @@ class InvitesMeetingController extends Controller
     {
     
          $AgendComment = new AgendComment();
-                        $AgendComment->agender_id =  $request['agenda'];
+                        $AgendComment->meeting_id =  $request['meetingid'];
                         $AgendComment->commenter = $request['commenter'];
                         $AgendComment->comments =   $request['comment']; 
                         $AgendComment->save ();
@@ -76,6 +78,19 @@ class InvitesMeetingController extends Controller
                   
             
     
+    }
+    function getComments($meeting_id){
+        return  DB::table('members')
+        ->join('agendcomment', 'members.id', '=', 'agendcomment.commenter')
+        ->where('meeting_id', $meeting_id)
+        ->get();
+    }
+
+    function comment_delete(Request $request){
+        $comment=AgendComment::find($request->get('commentid'));
+        $comment->delete();
+        Session::flash('alert-success','successfully Deleted.');
+        return redirect()->back();
     }
      
 

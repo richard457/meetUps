@@ -5,7 +5,7 @@ namespace Meet\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Meet\Meeting;
-use Meet\Attenda;
+use Meet\Member;
 use Meet\Invitee;
 use Log;
 use DB;
@@ -16,8 +16,8 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->today_timestamp =date("Y-m-d");
-        $this->tomorrow_timestamp =(new \DateTime($this->today_timestamp))->add(new \DateInterval("P1D"))->format('Y-m-d');
+        $this->today_timestamp =date("Y-m-d h:i:sa");
+        $this->tomorrow_timestamp =(new \DateTime($this->today_timestamp))->add(new \DateInterval("P1D"))->format('Y-m-d h:i:sa');
     }
 
     public function more(Request $request){
@@ -37,7 +37,7 @@ class HomeController extends Controller
     }
     
     function member_statitic(){
-       return Attenda::whereuser_id(Auth::id())->count();
+       return Member::whereuser_id(Auth::id())->count();
         
     }
 
@@ -69,7 +69,7 @@ class HomeController extends Controller
      {
  
          $acceptinvitation=DB::table('invitees')
-         ->join('attendants', 'invitees.invitee_email', '=', 'attendants.email')
+         ->join('members', 'invitees.invitee_email', '=', 'members.email')
         ->where('accepted_invitation', 1)->groupBy('invitee_email')->limit(5)->get();
          
          return $acceptinvitation; 

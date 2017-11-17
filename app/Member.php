@@ -9,8 +9,8 @@
 namespace Meet;
 use Illuminate\Database\Eloquent\Model;
 
-class Attenda extends Model
+class Member extends Model
 {
-    protected $table='attendant';
-    protected $fillable=['attend_id','status','meeting_id','user_id'];
+    protected $table='members';
+    protected $fillable=['fullname','email','phone','address','position','user_id'];
 }

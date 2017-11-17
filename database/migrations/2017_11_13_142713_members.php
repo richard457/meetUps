@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAttendantsTable extends Migration
+class Members extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateAttendantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('attendants', function (Blueprint $table) {
+        Schema::create('members', function (Blueprint $table) {
             $table->increments('id');
             $table->string ('fullname');
             $table->string ('email');
             $table->string ('phone');
             $table->string ('address');
+            $table->string ('position');
+            $table->integer('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ class CreateAttendantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attendants');
+        Schema::dropIfExists('members');
     }
 }

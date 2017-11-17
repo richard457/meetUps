@@ -1,0 +1,248 @@
+@extends('layouts.app') @section('content')
+
+<div class="container-fluid">
+
+    @if(sizeof($meeting) >0)
+    <div class="row bg-title">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            <div class="user-img">
+                <img src="{{ asset('images/meeting.png') }}" style="margin-left:10%;width:70px" alt="user" class="img-circle">
+            </div>
+        </div>
+
+        <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5" style="margin-top:1.5%">
+            <span>{{$meeting->title}}</span>
+            <br />
+            <span class="time">
+                <i class="fa fa-clock-o" aria-hidden="true"></i> {{ date('F d, Y h:i:sa', strtotime($meeting->date)) }}</span>, at
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            <span class="text-success">{{ $meeting->venue }}</span>
+        </div>
+
+        <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6" style="margin-top:0.6%">
+            <ul class="nav navbar-top-links navbar-right pull-left">
+
+                <li>
+                    <a href="/_meeting/{{$meeting->id}}" style="color: #54667a;font-size:18px;font-weight:400">Home</a>
+                </li>
+                <li>
+                    <a href="/_meeting/agenda/{{$meeting->id}}" style="color: #54667a;font-size:18px;font-weight:400">Agenda</a>
+                </li>
+                <li>
+                    <a href="/_meeting/board/{{$meeting->id}}" style="color: #54667a;font-size:18px;font-weight:400">Meeting board</a>
+                </li>
+                <li>
+                    <a href="/_meeting/invite/{{$meeting->id}}" style="color: #54667a;font-size:18px;font-weight:400">Invite</a>
+                </li>
+                <li class="dropdown dropdown-submenu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #54667a;font-size:18px;font-weight:400">Attendance</a>
+                    <ul class="dropdown-menu" style="margin-top:-67%">
+                        <li>
+                            <a href="/_meeting/new_attenda/{{$meeting->id}}">New Attendance</a>
+                        </li>
+                        <li>
+                            <a href="/_meeting/list_attenda/{{$meeting->id}}">Attendance List</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="/_meeting/reports/{{$meeting->id}}" style="color: #54667a;font-size:18px;font-weight:400">Reports</a>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <!-- .col -->
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">Agenda of the meeting </div>
+
+                @if(sizeof($agenda) >0)
+                <div class="panel-body">
+                    <div  class="col-md-12">
+                            <div class="col-md-1" style="width: 3.5%;"></div>
+                            <div class="col-md-2">Agenda</div>
+                            <div class="col-md-3">Matters arising during the Meeting</div>
+                            <div class="col-md-2">Action to be taken</div>
+                            <div class="col-md-2">Responsible Person</div>
+                            <div class="col-md-2">Deadline</div>
+                        </div>
+
+                        @foreach($agenda as $agenda)
+                        <input type='hidden' name="meeting" value="{{$meeting->id}}">
+                        <div id="tr{{$agenda->id}}" class="col-md-12">
+                            <div class="modal fade" id="addSlide{!! $agenda->id !!}" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog modal-md" role="document">
+                                    <div class="modal-content">
+
+
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel">Add {{$agenda->agenda}} items</h4>
+                                        </div>
+                                        <form class="form-inline" id="testForm" role="form" method="POST" action="{{action('BoardController@store')}}">
+                                           {{ csrf_field() }}
+                                        <div class="panel-body">
+                                        <input type='hidden' name="agenda_id" value="{{$agenda->id}}">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-6">Matters arising during the Meeting</div>
+                                                    <div class="col-md-6 pull-left">
+                                                        <textarea type="text" rows="6" style="max-width:100%;min-width:100%"
+                                                            placeholder="enter matters arising during the Meeting" id="matters"
+                                                            name="matters" required autofocus></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="col-md-6">Action to be taken</div>
+                                                    <div class="col-md-6 pull-left">
+                                                        <textarea type="text" rows="6" style="max-width:100%;min-width:100%"
+                                                            placeholder="enter action to be taken" id="action" name="action" required></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col-md-6">Responsible Person</div>
+                                                    <div class="col-md-6 pull-left">
+                                                        <textarea type="text" rows="6" style="max-width:100%;min-width:100%"
+                                                            placeholder="enter responsible Person" id="responsible" name="responsible" required></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col-md-6">Deadline</div>
+                                                    <div class="col-md-6 pull-left">
+                                                        <div class='input-group date' id='datepicker{{$agenda->id}}'>
+                                                            <input type='text' id="deadline" value="{{$agenda->deadline}}" name="deadline" class="form-control" required>
+                                                            <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar">
+                                                                </span>
+                                                            </span>
+                                                        </div>
+
+                                                        <script>
+                                                            window.addEventListener('load', function (e) {
+                                                                $('#datepicker{{$agenda->id}}').datetimepicker();
+                                                            });
+                                                        </script>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <br />
+                                                <button type="submit" style="margin-top:-1%" class="col-md-12 btn btn-success btn-lg">Save</button>
+                                            </div>
+                                        </div>
+                                        </form>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                </div>
+
+                <div class="col-md-1">
+                    <button class="col-md-12 btn btn-lg btn-default" data-toggle="modal" data-target="#addSlide{!! $agenda->id !!}" style="background:#fff;border:none"
+                        type="button">
+                        + </button>
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <textarea type="text" onkeydown="autoResize(event,{{$agenda->id}})" style="overflow-y:hidden;" disabled id="agenda">{{$agenda->agenda}}</textarea>
+
+                </div>
+               <div colspan='6' id="getdetails" class="col-md-9">
+
+                        <table border="1">
+                        <tr>
+                        <td class="col-md-4">1</td>
+                        <td class="col-md-4">2</td>
+                        </tr>
+                        </table>
+
+               </div>
+                <!-- <script>
+                window.addEventListener('load', function (e) {
+
+                    var gets=document.getElementById('getdetails');
+                    
+                    gets.innerHTML='<td class="input_table_cell">edjo </td><td class="input_table_cell">jfwe</td><td class="input_table_cell">ewee</td><td class="input_table_cell" style="z-index: 100;"> </td>';
+                       
+                });
+
+                </script> -->
+                
+                </div>
+                @endforeach
+
+                </div>
+            </div>
+
+            @else
+            <div class="panel-body">
+                no agenda could found!
+            </div>
+
+            @endif @if(sizeof($agenda) >0)
+            <div style="margin-top:3%">
+
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <label class="col-md-4">Opening Remarks</label>
+                        <textarea type="text" class="col-md-8" onkeydown="autoResize(event)" placeholder="Enter opening meeting remarks" style="overflow-y:hidden;"
+                            id="remarks" name="remarks"></textarea>
+
+                    </div>
+                    <div class="col-md-12">
+                        <br />
+                        <label class="col-md-4">Conclusion</label>
+
+                        <textarea type="text" class="col-md-8" onkeydown="autoResize(event)" placeholder="Enter conclusion" style="overflow-y:hidden;"
+                            id="conclusion" name="conclusion"></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <label class="col-md-4">Approved and signed</label>
+                        <input type="text" class="col-md-8" placeholder="Enter Approved and signed" id="director" name="director">
+
+                    </div>
+                    <div class="col-md-12">
+                        <br />
+                        <label class="col-md-4">Secretary</label>
+
+                        <input type="text" class="col-md-8" placeholder="Enter Secretary" id="secretary" name="secretary">
+
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <br />
+                    <br />
+                    <button type="submit" style="margin-top:-1%" class="col-md-12 btn btn-success btn-lg">Save</button>
+                </div>
+
+
+            </div>
+            @endif
+        </div>
+    </div>
+
+    @endif
+</div>
+
+@endsection

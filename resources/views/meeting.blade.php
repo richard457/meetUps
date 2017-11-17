@@ -21,26 +21,88 @@
 
     <div class="row">
         <div class="col-md-12 col-lg-8 col-lg-offset-2 col-sm-12" style="margin-left:114px">
-            <div class="white-box">
+          
                 <div class="panel panel-default">
                     <div class="panel-heading">Add Meeting</div>
                     <div class="panel-body">
 
                         <form method="post" action="meeting">
                             {{ csrf_field() }}
-                            <input class="form-control" name="title" placeholder="meeting handle">
-                            <br>
-                            <input class="form-control" type="hidden" value="{{Auth::id()}}" name="user_id">
-                            <br>
-                            <input class="form-control" name="date" type="date">
-                            <br>
-                            <button type="submit" class="btn btn-info btn-lg">Schedule Meeting</button>
+                            <input class="form-control" placeholder="meeting handle" type="hidden" value="{{Auth::id()}}" name="user_id">
+                            <table>
+
+                            <tr>
+                            <td class="col-md-2">
+                                <label>Meeting </label>
+                            </td>
+                            <td class="col-md-10">
+                            <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                                <textarea class="form-control" onkeydown="autoResize(event)" style="overflow-y:hidden;" name="title" rows='5' placeholder="meeting handle" required autofocus>{{ old('title') }}</textarea>
+                                
+                                                  @if ($errors->has('title'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('title') }}</strong>
+                                                    </span>
+                                                    @endif
+                            </div>
+
+                            </td>    
+                               
+                            </tr>
+                            <tr><td>&nbsp;</td> <td>&nbsp;</td> </tr>
+                            <tr>
+                            <td class="col-md-2">
+                                  <label class="col-md-2">Date </label>
+                            </td>
+                                <td class="col-md-10">
+                               
+                                         <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
+                                                <div class='input-group date' id='datepicker'>
+                                                    <input type='text' name="date" class="form-control" value="{{ old('date') }}" required>
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                                @if ($errors->has('date'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('date') }}</strong>
+                                                    </span>
+                                                    @endif
+                                        </div>
+                                    </div>
+                                  
+                               
+                                </td>
+                            </tr>
+                            <tr><td>&nbsp;</td> <td>&nbsp;</td> </tr>
+                            <tr>
+                            <td class="col-md-2">
+                                <label class="col-md-2">Venue </label>
+                            </td>
+                            <td class="col-md-10">
+                            <div class="form-group{{ $errors->has('venue') ? ' has-error' : '' }}">
+                                <input type='text' name="venue" placeholder="venue ..." value="{{ old('venue') }}" class="col-md-10 form-control" required>
+                                                 @if ($errors->has('venue'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('venue') }}</strong>
+                                                    </span>
+                                                    @endif
+                            </div>
+                            </td>  
+                            </tr> 
+                            <tr><td>&nbsp;</td> <td>&nbsp;</td> </tr>
+                            <tr>
+                            <td colspan="3">      
+                            <button type="submit" class="col-md-12 btn btn-info btn-lg">Schedule Meeting</button>
+                            </td>
+                            </tr>
+                            </table>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
 </div>
 
 <!-- DISPLAY MEETING -->
@@ -59,24 +121,21 @@
                             <div class="user-img">
                                 <img src="{{ asset('images/meeting.png') }}" style="margin-left:10%;width:70px" alt="user" class="img-circle">
                             </div>
-                            <div class="mail-contnet">
-                                <h5>{{$meet->name}}</h5>
-                                <span class="time">{{ date('F d, Y', strtotime($meet->date)) }}</span>
-                                <br/>
-                                <span class="mail-desc"> {{$meet->title}}</span>
-                                <a href="/agenda/{{$meet->id}}/{{$meet->title}}" class="btn btn btn-rounded btn-default btn-outline m-r-5">
-                                    <i class="ti-check text-success m-r-5"></i>Agenda</a>
-                                <a href="/invites/{{$meet->id}}/{{$meet->title}}" class="btn btn btn-rounded btn-default btn-outline m-r-5">
-                                    <i class="ti-check text-primary m-r-5"></i>Invite</a>
-                                <a href="/issues/{{$meet->id}}/{{$meet->title}}" class="btn-rounded btn btn-default btn-outline">
-                                    <i class="ti-close text-danger m-r-5"></i> Issues</a>
-                                <span class="pull-right">
-                                    <a href="#" data-toggle="modal" data-target="#deleteSlide{!! $meet->id !!}" class="btn-rounded btn btn-danger btn-outline">
-                                        <i class="ti-close text-danger m-r-5"></i>Delete</a>
-                                    <a href="#" data-toggle="modal" data-target="#editSlide{!! $meet->id !!}" class="btn-rounded btn btn-primary btn-outline">
-                                        <i class="ti-close text-primary m-r-5"></i>Edit</a>
-                                </span>
-                            </div>
+                            <a href="/_meeting/{{$meet->id}}">
+                                <div class="mail-contnet">
+                                    <h5>{{$meet->name}}</h5>
+                                    <span class="time"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ date('F d, Y h:i:sa', strtotime($meet->date)) }}</span>, at <i class="fa fa-map-marker" aria-hidden="true"></i> <span class="text-success">{{ $meet->venue }}</span>
+                                    <br/>
+                                    <span class="mail-desc"> {{$meet->title}}</span>
+                                    
+                                    <span class="pull-right">
+                                        <a href="#" data-toggle="modal" data-target="#deleteSlide{!! $meet->id !!}" class="btn-rounded btn btn-danger btn-outline">
+                                            <i class="ti-close text-danger m-r-5"></i>Delete</a>
+                                        <a href="#" data-toggle="modal" data-target="#editSlide{!! $meet->id !!}" class="btn-rounded btn btn-primary btn-outline">
+                                            <i class="ti-close text-primary m-r-5"></i>Edit</a>
+                                    </span>
+                                </div>
+                            </a>
                         </div>
 
 
@@ -96,18 +155,80 @@
 
                                 <div class="panel-body">
 
-                                    <form method="post" action="editmeeting">
+                                <form method="post" action="editmeeting">
                                         {{ csrf_field() }}
-                                        <label>Title</label>
-                                        <input class="form-control" name="title" value="{{$meet->title}}" placeholder="meeting handle">
-                                        <br>
-                                        <input class="form-control" type="hidden" value="{{$meet->id}}" name="meetingid">
-                                        <br>
-                                        <label>Date</label>
-                                        <input class="form-control" name="date" value="{{$meet->date}}" type="date">
-                                        <br>
-                                        <button type="submit" class="btn btn-info btn-lg">Edit</button>
-                                    </form>
+                                        
+                                        <input class="form-control"  type="hidden" value="{{$meet->id}}" name="meetingid">
+                                        <input class="form-control"  type="hidden" value="{{Auth::id()}}" name="user_id">
+                                        <table>
+
+                                        <tr>
+                                        <td class="col-md-2">
+                                            <label>Meeting </label>
+                                        </td>
+                                        <td class="col-md-10">
+                                        <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                                            <textarea class="form-control" onkeydown="autoResize(event)" style="overflow-y:hidden;" name="title" rows='5' placeholder="meeting handle" required autofocus>{{ $meet->title}}</textarea>
+                                            
+                                                            @if ($errors->has('title'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('title') }}</strong>
+                                                                </span>
+                                                                @endif
+                                        </div>
+
+                                        </td>    
+                                        
+                                        </tr>
+                                        <tr><td>&nbsp;</td> <td>&nbsp;</td> </tr>
+                                        <tr>
+                                        <td class="col-md-2">
+                                            <label class="col-md-2">Date </label>
+                                        </td>
+                                            <td class="col-md-10">
+                                        
+                                                    <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
+                                                            <div class='input-group date' id='datepicker'>
+                                                                <input type='text' value="{{ $meet->date}}" name="date" class="form-control" value="{{ old('date') }}" required>
+                                                                <span class="input-group-addon">
+                                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                                </span>
+                                                            </div>
+                                                            @if ($errors->has('date'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('date') }}</strong>
+                                                                </span>
+                                                                @endif
+                                                    </div>
+                                                </div>
+                                            
+                                        
+                                            </td>
+                                        </tr>
+                                        <tr><td>&nbsp;</td> <td>&nbsp;</td> </tr>
+                                        <tr>
+                                        <td class="col-md-2">
+                                            <label class="col-md-2">Venue </label>
+                                        </td>
+                                        <td class="col-md-10">
+                                        <div class="form-group{{ $errors->has('venue') ? ' has-error' : '' }}">
+                                            <input type='text' name="venue" value="{{ $meet->venue}}" placeholder="venue ..." value="{{ old('venue') }}" class="col-md-10 form-control" required>
+                                                            @if ($errors->has('venue'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('venue') }}</strong>
+                                                                </span>
+                                                                @endif
+                                        </div>
+                                        </td>  
+                                        </tr> 
+                                        <tr><td>&nbsp;</td> <td>&nbsp;</td> </tr>
+                                        <tr>
+                                        <td colspan="3">      
+                                        <button type="submit" class="col-md-12 btn btn-info btn-lg">Edit Meeting</button>
+                                        </td>
+                                        </tr>
+                                        </table>
+                                 </form>
                                 </div>
 
 
@@ -168,13 +289,3 @@
 </div>
 
 @endsection
-
-<script>
-    function printMetting() {
-        var print = document.getElementById('meetting').innerHTML;
-        var currentFile = document.body.innerHTML;
-        document.body.innerHTML = print;
-        window.print();
-        document.body.innerHTML = currentFile;
-    }
-</script>

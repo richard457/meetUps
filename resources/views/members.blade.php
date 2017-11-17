@@ -30,10 +30,11 @@
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('fullname') ? ' has-error' : '' }}">
+                            <br />
                                 <label for="fullname" class="col-md-4 control-label">Full name</label>
 
                                 <div class="col-md-6">
-                                    <input id="fullname" type="text" placeholder="full name of members" class="form-control" name="fullname" value="{{ old('fullname') }}"
+                                    <input id="fullname" type="text" placeholder="full name" class="form-control" name="fullname" value="{{ old('fullname') }}"
                                         required autofocus> @if ($errors->has('fullname'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('fullname') }}</strong>
@@ -41,7 +42,7 @@
                                     @endif
                                 </div>
                             </div>
-
+<br />
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label for="email" class="col-md-4 control-label">Email</label>
 
@@ -53,7 +54,7 @@
                                     @endif
                                 </div>
                             </div>
-
+                            <br />
                             <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                                 <label for="phone" class="col-md-4 control-label">Phone</label>
 
@@ -65,7 +66,7 @@
                                     @endif
                                 </div>
                             </div>
-
+                            <br />
                             <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
                                 <label for="address" class="col-md-4 control-label">Address</label>
 
@@ -78,7 +79,20 @@
                                     @endif
                                 </div>
                             </div>
+                            <br />
+                            <div class="form-group{{ $errors->has('position') ? ' has-error' : '' }}">
+                                <label for="position" class="col-md-4 control-label">Position</label>
 
+                                <div class="col-md-6">
+                                    <input id="position" type="text" placeholder="position (Director General DG)" class="form-control" name="position" value="{{ old('position') }}"
+                                        required> @if ($errors->has('position'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('position') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <br />
                             <input class="form-control" type="hidden" value="{{Auth::id()}}" name="user_id">
                             <br />
                             <div class="col-md-6">
@@ -122,6 +136,8 @@
                                     <img src="{{ asset('images/user.png') }}" alt="user-img" class="img-circle">
                                     <span>{{$members->fullname}}
                                         <small class="text-success"> {{$members->email}} > {{$members->phone}} > {{$members->address}}</small>
+                                   <br />
+                                   <small class="text-info">{{$members->position}}</small>
                                     </span>
                                 </a>
                             </li>
@@ -131,7 +147,7 @@
                         <div class="modal fade" id="editSlide{!! $members->id !!}" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog modal-md" role="document">
                                 <div class="modal-content">
-                            
+
 
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -140,76 +156,88 @@
                                         <h4 class="modal-title" id="myModalLabel">Edit member</h4>
                                     </div>
                                     <form method="post" action="editmembers">
-                                                {{ csrf_field() }}
-                                    <div class="modal-body">
-                                     
-                                      <div class="form-group{{ $errors->has('fullname') ? ' has-error' : '' }}">
-                                                    <label for="fullname" class="col-md-4 control-label">Full name</label>
+                                        {{ csrf_field() }}
+                                        <div class="modal-body">
 
-                                                    <div class="col-md-6">
-                                                        <input id="fullname" type="text" value="{{$members->fullname}}" placeholder="full name of members" class="form-control" name="fullname" value="{{ old('fullname') }}"
-                                                            required autofocus> 
-                                                            @if ($errors->has('fullname'))
-                                                                <span class="help-block">
-                                                                    <strong>{{ $errors->first('fullname') }}</strong>
-                                                                </span>
-                                                                @endif
-                                                    </div>
-                                      </div>
-<br />
-                                                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                                    <label for="email" class="col-md-4 control-label">Email</label>
+                                            <div class="form-group{{ $errors->has('fullname') ? ' has-error' : '' }}">
+                                                <label for="fullname" class="col-md-4 control-label">Full name</label>
 
-                                                    <div class="col-md-6">
-                                                        <input id="email" type="email" value="{{$members->email}}" placeholder="email address" class="form-control" name="email" value="{{ old('email') }}" required> 
-                                                        @if ($errors->has('email'))
-                                                        <span class="help-block">
-                                                            <strong>{{ $errors->first('email') }}</strong>
-                                                        </span>
-                                                        @endif
-                                                    </div>
+                                                <div class="col-md-6">
+                                                    <input id="fullname" type="text" value="{{$members->fullname}}" placeholder="full name of members" class="form-control" name="fullname"
+                                                        value="{{ old('fullname') }}" required autofocus> @if ($errors->has('fullname'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('fullname') }}</strong>
+                                                    </span>
+                                                    @endif
                                                 </div>
+                                            </div>
+                                            <br />
+                                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                                <label for="email" class="col-md-4 control-label">Email</label>
 
-      <br />                                         <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                                                    <label for="phone" class="col-md-4 control-label">Phone</label>
+                                                <div class="col-md-6">
+                                                    <input id="email" type="email" value="{{$members->email}}" placeholder="email address" class="form-control" name="email"
+                                                        value="{{ old('email') }}" required> @if ($errors->has('email'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('email') }}</strong>
+                                                    </span>
+                                                    @endif
+                                                </div>
+                                            </div>
 
-                                                    <div class="col-md-6">
-                                                        <input id="phone" type="text" placeholder="phone number" value="{{$members->phone}}" class="form-control" name="phone" value="{{ old('phone') }}" required> 
-                                                        @if ($errors->has('phone'))
-                                                        <span class="help-block">
-                                                            <strong>{{ $errors->first('phone') }}</strong>
-                                                        </span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                <br />
-                                                <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                                                    <label for="address" class="col-md-4 control-label">Address</label>
+                                            <br />
+                                            <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                                                <label for="phone" class="col-md-4 control-label">Phone</label>
 
-                                                    <div class="col-md-6">
-                                                        <input id="address" type="text" value="{{$members->address}}" placeholder="address eg(kgt 20,kigali rwanda)" class="form-control" name="address" value="{{ old('address') }}"
-                                                            required> 
-                                                            @if ($errors->has('address'))
-                                                        <span class="help-block">
-                                                            <strong>{{ $errors->first('address') }}</strong>
-                                                        </span>
-                                                        @endif
-                                                    </div>
+                                                <div class="col-md-6">
+                                                    <input id="phone" type="text" placeholder="phone number" value="{{$members->phone}}" class="form-control" name="phone" value="{{ old('phone') }}"
+                                                        required> @if ($errors->has('phone'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('phone') }}</strong>
+                                                    </span>
+                                                    @endif
                                                 </div>
-                                                <br />
-                                                <div class="form-group">
-                                              <input type="hidden" name="memberid" value="{{ $members->id }}">
-                                                        <button type="submit" class="btn btn-info btn-lg">Edit</button>
+                                            </div>
+                                            <br />
+                                            <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                                                <label for="address" class="col-md-4 control-label">Address</label>
+
+                                                <div class="col-md-6">
+                                                    <input id="address" type="text" value="{{$members->address}}" placeholder="address eg(kgt 20,kigali rwanda)" class="form-control"
+                                                        name="address" value="{{ old('address') }}" required> @if ($errors->has('address'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('address') }}</strong>
+                                                    </span>
+                                                    @endif
                                                 </div>
-                                                    
-                                              
-                                           
-                                    </div>
-                                    
+                                            </div>
+                                            <br />
+                                            <div class="form-group{{ $errors->has('position') ? ' has-error' : '' }}">
+                                                <label for="position" class="col-md-4 control-label">Position</label>
+
+                                                <div class="col-md-6">
+                                                    <input id="position" type="text"  value="{{$members->position}}" placeholder="position (Director General DG)" class="form-control" name="position" value="{{ old('position') }}"
+                                                        required> @if ($errors->has('position'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('position') }}</strong>
+                                                    </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="form-group">
+                                                <input type="hidden" name="memberid" value="{{ $members->id }}">
+                                                <button type="submit" class="btn btn-info btn-lg">Edit</button>
+                                            </div>
+
+
+
+                                        </div>
+
                                     </form>
-                                   
+
                                 </div>
-                               
+
                             </div>
                         </div>
 

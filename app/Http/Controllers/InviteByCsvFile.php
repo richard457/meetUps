@@ -16,11 +16,13 @@ use Meet\Mail\InviteMember;
 use Session;
 class InviteByCsvFile extends Controller
 {
-    public function inviteByCsv(Request  $request){
+    public function store(Request  $request){
 
-        if($request->input('type') == 'csv'){
+        $data = Excel::load($request->csv->path(), function($reader) {})->get();
+      
+            if(!empty($request)){
 
-            $data = Excel::load($request->csv->path(), function($reader) {})->get();
+            
             if(!empty($data) && $data->count()){
 
                 foreach ($data->toArray() as $key => $v) {
@@ -32,15 +34,24 @@ class InviteByCsvFile extends Controller
                         $attend->user_id = Auth::id ();
                         $attend->address = $v['address'];
                         $attend->save ();
+                                        
+                        Invitee::create(['meeting_id' =>$request->get ('meeting_id'), 'user_id' => Auth::user ()->id, 'invitee_email' => $v['email']]);
+
                         Mail::to ($v['email'])->send (new InviteMember('http://localhost:8000/accept/invitation/' . $request->get ('meeting_id') . '/' . $request->get ('meeting_owner')));
+                    }else{
+                        Session::flash('alert-danger','please this file is empty, no data found');
+                    
                     }
                 }
                 Session::flash('alert-success','successfully sent and saved.');
-                return redirect ()->back ();
+              
         }else{
-            Session::flash('alert-danger','this file was not imported and sent.');
-            return redirect ()->back ();
+            Session::flash('alert-danger','this file was not imported and sent,check if it contains data.');
+           
         }
+    }else{
+        Session::flash('alert-danger','This is not csv type');
     }
+    return redirect ()->back ();
     }
 }
