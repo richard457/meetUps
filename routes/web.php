@@ -26,6 +26,8 @@ Route::post ('attenda', 'AttendaController@store');
 Route::post ('boardupdate', 'BoardController@store');
 Route::get ('board', 'BoardController@getDetails');
 
+
+
 Route::post('members','MemberController@store');
 Route::post('upload', 'InviteByCsvFile@store');
 Auth::routes();
@@ -55,7 +57,9 @@ Route::post ('editmembers', 'MemberController@editmembers');
 Route::post ('editmeeting', 'MeetingController@editmeeting');
 Route::post ('editagenda', 'MeetingController@editagenda');
 Route::post ('attenda_delete', 'AttendaController@deleteAttenda');
-
+Route::post ('removeagendaitem', 'BoardController@removeagendaitem');
+Route::post ('editagendaDetails', 'BoardController@editagendaDetails');
+Route::post('finaldatachanger','MeetingController@finaldatachanger');
 
 Route::post ('comment_delete', 'InvitesMeetingController@comment_delete');
 Route::post ('_comment_delete', 'MeetingController@comment_delete');

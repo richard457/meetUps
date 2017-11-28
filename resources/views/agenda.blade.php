@@ -66,12 +66,12 @@
                             <label for="agenda" class="col-md-2 control-label">Agenda item</label>
 
                             <div class="col-md-8">
-                                <input id="agenda" type="text" placeholder="add agenda item" class="form-control" name="agenda" required autofocus>
+                                <input id="agenda" type="text" placeholder="add agenda" class="form-control" name="agenda" required autofocus>
                              
                             </div>
                         </div>
 
-                        <button type="submit" style="margin-top:-1%" class="col-md-2 btn btn-info btn-lg">Save</button>
+                        <button type="submit" style="margin-top:0%" class="col-md-2 btn btn-info btn-md">Save</button>
                     </form>
 
                 </div>

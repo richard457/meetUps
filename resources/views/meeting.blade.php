@@ -28,23 +28,24 @@
 
                         <form method="post" action="meeting">
                             {{ csrf_field() }}
+
                             <input class="form-control" placeholder="meeting handle" type="hidden" value="{{Auth::id()}}" name="user_id">
-                            <table>
+                            <table style="width:100%" class="row">
 
                             <tr>
                             <td class="col-md-2">
                                 <label>Meeting </label>
                             </td>
                             <td class="col-md-10">
-                            <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                                <textarea class="form-control" onkeydown="autoResize(event)" style="overflow-y:hidden;" name="title" rows='5' placeholder="meeting handle" required autofocus>{{ old('title') }}</textarea>
-                                
-                                                  @if ($errors->has('title'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('title') }}</strong>
-                                                    </span>
-                                                    @endif
-                            </div>
+                                <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                                    <text class="form-control" style="overflow-y:hidden;" name="title"  value="{{ old('title') }}" placeholder="meeting handle" required autofocus>
+                                    
+                                                    @if ($errors->has('title'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('title') }}</strong>
+                                                        </span>
+                                                        @endif
+                                </div>
 
                             </td>    
                                
@@ -93,7 +94,7 @@
                             <tr><td>&nbsp;</td> <td>&nbsp;</td> </tr>
                             <tr>
                             <td colspan="3">      
-                            <button type="submit" class="col-md-12 btn btn-info btn-lg">Schedule Meeting</button>
+                            <button type="submit" class="col-md-12 btn btn-info btn-sm">Schedule Meeting</button>
                             </td>
                             </tr>
                             </table>

@@ -1,0 +1,27 @@
+      <form class="form-inline" id="getform" role="form" method="GET" action="{{action('BoardController@getDetails')}}">
+                            {{ csrf_field() }} @foreach($agenda as $agenda)
+
+                            <div id="tr{{$agenda->id}}" class="col-md-12" style="border-bottom:solid">
+                                <div class="col-md-1">
+                                    <button class="col-md-12 btn btn-lg btn-default" data-toggle="modal" data-target="#addSlide{!! $agenda->id !!}" style="background:#fff;border:none"
+                                        type="button">
+                                        + </button>
+
+                                </div>
+
+                                <div class="col-md-2" id="agenda{{$agenda->id}}">
+                                    {{$agenda->agenda}}
+                                </div>
+                                <div class='col-md-9'>
+                                    <div id='getdetails{{$agenda->id}}'></div>
+                                </div>
+                                <input type='hidden' id="agenda_id" name="agenda_id[]" value="{{$agenda->id}}">
+
+
+
+
+                            </div>
+
+
+                            @endforeach
+                        </form>

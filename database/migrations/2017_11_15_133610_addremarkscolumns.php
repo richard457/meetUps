@@ -23,8 +23,7 @@ class Addremarkscolumns extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down(){
         Schema::table('meetings', function (Blueprint $table) {
             $table->dropColumn('remarks');
         });

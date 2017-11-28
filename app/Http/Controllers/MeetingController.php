@@ -75,6 +75,17 @@ class MeetingController extends Controller
         return redirect()->back();
     }
 
+    function finaldatachanger(Request $request){
+ 
+        $metting=Meeting::find($request->get ('meetingid'));
+        $metting->conclusion=$request['conclusion'];
+        $metting->director=$request['director'];
+        $metting->secretor=$request['secretary'];
+        $metting->remarks=$request['remarks'];
+        $metting->save();
+        return ['message'=>'successfully saved!'];
+        }
+
     function meetingDetails($meeting_id){
         $comments=$this->getComments($meeting_id);
         $meeting=$this->getMeeting($meeting_id);
@@ -107,9 +118,7 @@ class MeetingController extends Controller
     function getMeeting($meeting_id){
         return Meeting::where('id',$meeting_id)->first();
     }
-    function getAgendaDetails($id){
-
-    }
+   
     public function agenda($meeting_id)
     {
         $meeting=$this->getMeeting($meeting_id);

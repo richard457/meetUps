@@ -164,7 +164,8 @@
 
                                                 <div class="col-md-6">
                                                     <input id="fullname" type="text" value="{{$members->fullname}}" placeholder="full name of members" class="form-control" name="fullname"
-                                                        value="{{ old('fullname') }}" required autofocus> @if ($errors->has('fullname'))
+                                                        value="{{ old('fullname') }}" required autofocus>
+                                                         @if ($errors->has('fullname'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('fullname') }}</strong>
                                                     </span>

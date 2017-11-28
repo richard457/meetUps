@@ -158,7 +158,7 @@
                                  <td class="col-md-3"  id="agenda{{$agenda->id}}">
                                         {{$agenda->agenda}}
                                     </td>
-                                    <td class='col-md-9' colspan="6">
+                                    <td class='col-md-9' colspan="6" style="width:100%">
                                         <table id='getdetails{{$agenda->id}}'></table>
                                     </td>
 

@@ -25,10 +25,28 @@ class BoardController extends Controller
     }
 
     function getDetails(Request $request){
+   
             $a= AgendaDetails::whereuser_id (Auth::id ())->where('agenda_id',$request['value'])->get ();
             return ['data'=>$a];
     }
+    function removeagendaitem(Request $request){
+        $a=AgendaDetails::find($request->get ('id'));
+        $a->delete ();
+        
+          return ['message'=>'successfully deleted.'];   
+          
+    }
 
+    function editagendaDetails(Request $request){
+        $a=AgendaDetails::find($request->get ('id'));
+        $a->matters =  $request['matters'];
+        $a->action = $request['action'];
+        $a->responsible =   $request['responsible']; 
+        $a->deadline =   $request['deadline']; 
+        $a->save ();
+      
+        return ['message'=>'successfully edited.']; 
+    }
 
   
 }

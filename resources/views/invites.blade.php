@@ -176,12 +176,7 @@
                                                                     <ul class="chatonline">
                                                                         <li>
                                                                             <div class="call-chat">
-                                                                                <button class="btn btn-success btn-circle btn-lg" type="button">
-                                                                                    <i class="fa fa-phone"></i>
-                                                                                </button>
-                                                                                <button class="btn btn-danger btn-circle btn-lg" type="button">
-                                                                                    <i class="fa fa-comments-o"></i>
-                                                                                </button>
+                                                                             
                                                                             </div>
                                                                             <a href="javascript:void(0)">
                                                                                 <img src="{{ asset('images/user.png') }}" alt="user-img" class="img-circle">
@@ -233,12 +228,7 @@
                                                                     <ul class="chatonline">
                                                                         <li>
                                                                             <div class="call-chat">
-                                                                                <button class="btn btn-success btn-circle btn-lg" type="button">
-                                                                                    <i class="fa fa-phone"></i>
-                                                                                </button>
-                                                                                <button class="btn btn-danger btn-circle btn-lg" type="button">
-                                                                                    <i class="fa fa-comments-o"></i>
-                                                                                </button>
+                                                                             
                                                                             </div>
                                                                             <a href="javascript:void(0)">
                                                                                 <img src="{{ asset('images/user.png') }}" alt="user-img" class="img-circle">
