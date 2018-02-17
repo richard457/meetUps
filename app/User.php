@@ -26,4 +26,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get the Meetings for the user.
+     */
+    public function meetings()
+    {
+        return $this->hasMany('Meet\Meeting');
+    }
 }

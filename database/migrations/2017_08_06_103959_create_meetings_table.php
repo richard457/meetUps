@@ -16,8 +16,14 @@ class CreateMeetingsTable extends Migration
         Schema::create('meetings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->integer('user_id');
             $table->string('date');
+            $table->string('venue')->nullable();
+            $table->string('conclusion')->nullable();
+            $table->string('director')->nullable();
+            $table->string('secretor')->nullable();
+            $table->integer('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

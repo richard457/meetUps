@@ -14,7 +14,8 @@ class AgendCommentTable extends Migration
     public function up()
     {
         Schema::create('AgendComment', function (Blueprint $table) {
-            $table->increments('agender_id');
+            $table->integer('id')->index();
+            $table->increments('meeting_id');
             $table->string('commenter');
             $table->string('comments');
             $table->timestamps();

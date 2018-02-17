@@ -25,4 +25,5 @@ class CreateInviteesTable extends Migration
     {
         Schema::dropIfExists('invitees');
     }
+    
 }
