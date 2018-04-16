@@ -23,8 +23,11 @@ Route::post('agenda','MeetingController@addAgenda');
 Route::post('issues','IssuesController@store');
 Route::post ('invites', 'InvitesController@store');
 Route::post ('attenda', 'AttendaController@store');
-Route::post ('boardupdate', 'BoardController@store');
+Route::post ('saveAgendaBoard', 'BoardController@store');
 Route::get ('board', 'BoardController@getDetails');
+Route::get ('getMemberOption', 'BoardController@getMemberOption');
+Route::get ('getAllMembers', 'BoardController@getAllMembers');
+
 
 
 
@@ -45,7 +48,13 @@ Route::get ('/_meeting/board/{meetingId}', 'MeetingController@board');
 Route::get ('//_meeting/reports/{meetingId}', 'MeetingController@meetingReports');
 
 
+
 Route::get ('/meeting/agenda/{invitingId}/{meeting_id}', 'InvitesMeetingController@meetingstatement');
+Route::post ('add_task_comment', 'InvitesMeetingController@onAddCommentOnTask');
+Route::get ('get_task_comment', 'InvitesMeetingController@getTaskComment');
+
+Route::get ('getMyMeeting', 'InvitesMeetingController@getMyAssignedTask');
+
 Route::get ('/accept/invitation/{invitingId}/{meeting_id}', 'InvitesMeetingController@acceptInvitation');
 
 Route::get ('/agendComment/{agendaId}/{invitedId}/{agendatitle}', 'InvitesMeetingController@singleAgenda');

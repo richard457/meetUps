@@ -12,6 +12,7 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        //
+        '/add_task_comment',
+        '/get_task_comment'
     ];
 }

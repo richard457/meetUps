@@ -110,6 +110,7 @@ class MeetingController extends Controller
     function board($meeting_id){
         $meeting=$this->getMeeting($meeting_id);
         $agenda =$this->getAgenda($meeting_id);
+        Log::info($agenda);
         return view('meetingboard')->with('meeting',$meeting)->with('agenda',$agenda);
     }
     function getAgenda($meeting_id){

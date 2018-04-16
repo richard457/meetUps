@@ -1,4 +1,4 @@
- @extends('layouts.app') @section('content')
+@extends('layouts.app') @section('content')
 
 <div class="container-fluid">
     <div class="row bg-title">
@@ -38,7 +38,7 @@
                             </td>
                             <td class="col-md-10">
                                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                                    <text class="form-control" style="overflow-y:hidden;" name="title"  value="{{ old('title') }}" placeholder="meeting handle" required autofocus>
+                                    <input class="form-control" style="overflow-y:hidden;" name="title"  value="{{ old('title') }}" placeholder="meeting handle" required autofocus>
                                     
                                                     @if ($errors->has('title'))
                                                         <span class="help-block">
@@ -138,6 +138,7 @@
                                 </div>
                             </a>
                         </div>
+
 
 
                     </div>

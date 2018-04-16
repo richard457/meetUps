@@ -31,7 +31,7 @@
     <!-- color CSS -->
     <link href="{{ asset('/styles/css/colors/default.css') }}" id="theme" rel="stylesheet">
     <link href="{{ asset('/styles/css/font-awesome.min.css') }}" id="theme" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="styles/css/date.css" />
 
 
 </head>
@@ -196,9 +196,9 @@
     <script type="text/javascript" src="{{ asset('/styles/js/FileSaver.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/styles/js/jquery.wordexport.js') }}"></script>
     <script src="{{ asset('/styles/plugins/bower_components/toast-master/js/jquery.toast.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="{{asset('/styles/js/moment.js')}}"></script>
+    <script src="{{asset('styles/js/pdf.js')}}"></script>
+    <script src="{{asset('styles/js/date.js')}}"></script>
   
 </body>
 

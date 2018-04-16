@@ -57,167 +57,214 @@
 
     <div class="row">
 
-    <div class="col-md-12 col-lg-12 col-sm-12">
-    <div class="card">
-    <div class="body">
-        <div class="panel row clearfix">
-        <div class="panel-heading panel-info">AGENDA OF THE MEETING DETAILS </div>
-<br />
-                @if(sizeof($agenda) >0)
-            <div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
-               
-                @foreach($agenda as $agenda)
-                <div class="panel-group" id="accordion_{{$agenda->id}}" role="tablist" aria-multiselectable="true">
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingTwo_{{$agenda->id}}">
-                            <h4 class="panel-title">
-                                <a class="collapsed" id="collapsed{{$agenda->id}}" role="button" data-toggle="collapse" data-parent="#accordion_{{$agenda->id}}" href="#collapseTwo_{{$agenda->id}}" aria-expanded="false" aria-controls="collapseTwo_{{$agenda->id}}">
-                                {{$agenda->agenda}}
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseTwo_{{$agenda->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo_{{$agenda->id}}">
-                            <div class="panel-body">
-                          
-                            <table  class="col-md-12" border='1' style="width:100%">
-                            <theader>
-                            <tr><td>
-                            <center><wait id="wait{{$agenda->id}}" style="display:none">
-                                        <svg class="circular" viewBox="25 25 50 50">
-                                            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
-                                        </svg>
-                                    </wait>
-                                 </center>
-                                 </td>
-                                 </tr>
-                                <tr>
-                                   
-                                    <th class="col-md-4">Matters arising during the Meeting</th>
-                                    <th class="col-md-3">Action to be taken</th>
-                                    <th class="col-md-2">Responsible Person</th>
-                                    <th class="col-md-2">Deadline</th>
-                                    <th class="col-md-1"></th>
-                                </tr>
-                                <input type="hidden" value="{{ csrf_token() }}" name="_token">
-                                <input type="hidden" value="{{$agenda->id}}" id="agendaid[]" class="agendaid">
-                                </theader>
-                                <tbody id="getagendadata{{$agenda->id}}">
-                                </tbody>
-                                <tfooter>
-                                <form class="form-inline" id="Form{{$agenda->id}}" role="form" method="POST" action="{{action('BoardController@store')}}">
-                                
-                                <tr>
-                                
-                                <input type="hidden" value="{{ csrf_token() }}" name="_token" id="_token">
-                                <input type="hidden" value="{{$agenda->id}}" id="agenda_id" name="agenda_id">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="card">
+                <div class="body">
+                    <div class="panel row clearfix">
+                        <div class="panel-heading panel-info">AGENDA OF THE MEETING DETAILS </div>
+                        <br /> @if(sizeof($agenda) >0)
+                        <div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
+
+                            @foreach($agenda as $agenda)
+                            <div class="panel-group" id="accordion_{{$agenda->id}}" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingTwo_{{$agenda->id}}">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" id="collapsed{{$agenda->id}}" role="button" data-toggle="collapse" data-parent="#accordion_{{$agenda->id}}"
+                                                href="#collapseTwo_{{$agenda->id}}" aria-expanded="false" aria-controls="collapseTwo_{{$agenda->id}}">
+                                                {{$agenda->agenda}}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo_{{$agenda->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo_{{$agenda->id}}">
+                                        <div class="panel-body">
+
+                                            <table class="col-md-12" border='1' style="width:100%">
+                                                <theader>
+                                                    <tr>
+                                                        <td>
+                                                            <center>
+                                                                <wait id="wait{{$agenda->id}}" style="display:none">
+                                                                    <svg class="circular" viewBox="25 25 50 50">
+                                                                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+                                                                    </svg>
+                                                                </wait>
+                                                            </center>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <th class="col-md-4">Matters arising during the Meeting</th>
+                                                        <th class="col-md-3">Action to be taken</th>
+                                                        <th class="col-md-2">Responsible Person</th>
+                                                        <th class="col-md-2">Deadline</th>
+                                                        <th class="col-md-1"></th>
+                                                    </tr>
+                                                    <input type="hidden" value="{{ csrf_token() }}" name="_token">
+                                                    <input type="hidden" value="{{$agenda->id}}" id="agendaid[]" class="agendaid">
+                                                </theader>
+                                                <tbody id="getagendadata{{$agenda->id}}">
+                                                </tbody>
+                                                <tfooter>
+                                                   
+
+                                                        <tr>
+
+                                                            <input type="hidden" value="{{ csrf_token() }}" name="_token" id="_token">
+                                                            <input type="hidden" value="{{$agenda->id}}" id="agenda_id" name="agenda_id">
+
+                                                            <td class="col-md-4">
+                                                                <textarea type="text" class="col-md-12 form-control" placeholder="Enter Matters arising during the Meeting" style="overflow-y:hidden;"
+                                                                    id="matter{{$agenda->id}}" name="matters"></textarea>
+                                                            </td>
+
+                                                            <td class="col-md-3">
+                                                                <textarea type="text" class="col-md-12 form-control" placeholder="Enter Action to be taken" style="overflow-y:hidden;" id="action{{$agenda->id}}"
+                                                                    name="action"></textarea>
+                                                            </td>
+                                                            <td class="col-md-2">
                                   
-                                    <td class="col-md-4"> 
-                                     <textarea type="text" class="col-md-12 form-control" placeholder="Enter Matters arising during the Meeting" style="overflow-y:hidden;"
-                                id="matter" name="matters"></textarea>
-                                   </td>
+                                                              </td>
+                                                            <td class="col-md-2">
+                                                                <div class='col-md-12 input-group date' id='datepicker'>
+                                                                    <input type='text' name="date" id="deadline{{$agenda->id}}" class="form-control" placeholder="Choose Deadline date" required>
+                                                                    <span class="input-group-addon">
+                                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                            <td class="col-md-1">
+                                                                <button type="button" onclick="saveAgendaDetails({{$agenda->id}})" data-toggle="modal" data-target="#resposibleModal{!! $agenda->id !!}"
+                                                                    class="col-md-12 btn btn-info">Save</button>
 
-                                    <td class="col-md-3">
-                                     <textarea type="text" class="col-md-12 form-control" placeholder="Enter Action to be taken" style="overflow-y:hidden;"
-                                id="action" name="action"></textarea>
-                                   </td>
-                                    <td class="col-md-2">
-                                    <textarea type="text" class="col-md-12 form-control"  placeholder="Enter Responsible Person" style="overflow-y:hidden;"
-                                id="responsible" name="responsible"></textarea>
-                                   </td>
-                                    <td class="col-md-2"> <div class='col-md-12 input-group date' id='datepicker'>
-                                                    <input type='text' name="date" class="form-control" placeholder="Choose Deadline date" required>
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                </div></td>
-                                    <td class="col-md-1">
-                                    <button type="button" onclick="saveAgendaDetails({{$agenda->id}})" class="col-md-12 btn btn-info">Save</button>
-                                    </td>
-                                </tr>
-                                </form>
-                            
-                                </tfooter>
-                  
-                                  </table>
+
+
+                                                            </td>
+                                                        </tr>
+                                                   
+                                                    <div class="modal fade" id="resposibleModal{!!$agenda->id!!}" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog modal-md" role="document">
+                                                            <div class="modal-content">
+                                                             
+                                                                    <div class="panel panel-default">
+                                                                        <div class="panel-heading">ADD RESPONSIBLE
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closable{!!$agenda->id!!}">
+                                                                            <span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                        </div>
+                                                                       
+                                                                        <div class="panel-body">
+
+                                                                            <div id="getmembertable{!!$agenda->id!!}">
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="panel-footer">  
+
+                                                                            <button class="btn btn-info" onclick="finalsaveAgendaDetails({{$agenda->id}})">Save</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div style="display:none">
+                                                                        <input type="text" id="getmatter{{$agenda->id}}">
+                                                                        <input type="text" id="getaction{{$agenda->id}}">
+                                                                        <input type="text" id="getdeadline{{$agenda->id}}">
+                                                                    </div>
+                                                               
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </tfooter>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                 </div>
-                    @endforeach
-              
-            </div>
-            @else
-                <div class="panel-body">
-                    no agenda could found!
-                </div>
+                            @endforeach
 
-                @endif
-       
-            
+                        </div>
+                        @else
+                        <div class="panel-body">
+                            no agenda could found!
+                        </div>
+
+                        @endif
+
+
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-    </div>                                
         <!-- .col -->
         <div class="col-md-12 col-lg-12 col-sm-12">
-      
-        <div class="panel-heading panel-info"> </div>
-<br />
-                  @if(sizeof($agenda) >0)
-                  <form class="form-inline" id="_testForm" role="form" method="POST" action="{{action('MeetingController@finaldatachanger')}}">
-                  <input type="hidden" value="{{ csrf_token() }}" name="_token" id="_token">
-                  <input type="hidden" value="{{$meeting->id}}" name="meetingid" id="meetingid">
-               <table border='1' style="width:100%">
-                <tr>
-                <th class="col-md-3"><label>Opening Remarks</label></th>
-                <th class="col-md-3"><label>Conclusion</label></th>
-                <th class="col-md-2"><label>Approved and signed</label></th>
-                <th class="col-md-2"><label>Secretary</label></th>
-                <td class="col-md-2">
-                 </td>
-                </tr>
+
+            <div class="panel-heading panel-info"> </div>
+            <br /> @if(sizeof($agenda) >0)
+            <form class="form-inline" id="_testForm" role="form" method="POST" action="{{action('MeetingController@finaldatachanger')}}">
+                <input type="hidden" value="{{ csrf_token() }}" name="_token" id="_token">
+                <input type="hidden" value="{{$meeting->id}}" name="meetingid" id="meetingid">
+                <table border='1' style="width:100%">
+                    <tr>
+                        <th class="col-md-3">
+                            <label>Opening Remarks</label>
+                        </th>
+                        <th class="col-md-3">
+                            <label>Conclusion</label>
+                        </th>
+                        <th class="col-md-2">
+                            <label>Approved and signed</label>
+                        </th>
+                        <th class="col-md-2">
+                            <label>Secretary</label>
+                        </th>
+                        <td class="col-md-2">
+                        </td>
+                    </tr>
                     <tr>
                         <td class="col-md-3">
-                            
-                            <textarea type="text" class="col-md-12" rows="8" placeholder="Enter opening meeting remarks" style="overflow-y:hidden;"
-                                id="remarks" name="remarks">@if($meeting->remarks) {{$meeting->remarks}} @endif</textarea>
+
+                            <textarea type="text" class="col-md-12" rows="8" placeholder="Enter opening meeting remarks" style="overflow-y:hidden;" id="remarks"
+                                name="remarks">@if($meeting->remarks) {{$meeting->remarks}} @endif</textarea>
 
                         </td>
                         <td class="col-md-3">
-                         
-                            <textarea type="text" class="col-md-12" rows="8" placeholder="Enter conclusion" style="overflow-y:hidden;"
-                                id="conclusion" name="conclusion">@if($meeting->conclusion) {{$meeting->conclusion}} @endif</textarea>
+
+                            <textarea type="text" class="col-md-12" rows="8" placeholder="Enter conclusion" style="overflow-y:hidden;" id="conclusion"
+                                name="conclusion">@if($meeting->conclusion) {{$meeting->conclusion}} @endif</textarea>
 
                         </td>
 
-                  
 
-                    <td class="col-md-2">
-                      
-                    <textarea type="text" class="col-md-12" rows="8" placeholder="Approved and signed by" id="director" name="director">@if($meeting->director) {{$meeting->director}} @endif</textarea>
+
+                        <td class="col-md-2">
+
+                            <textarea type="text" class="col-md-12" rows="8" placeholder="Approved and signed by" id="director" name="director">@if($meeting->director) {{$meeting->director}} @endif</textarea>
 
                         </td>
                         <td class="col-md-2">
-                        <textarea type="text" class="col-md-12" rows="8" placeholder="Enter Secretary" id="secretary" name="secretary">@if($meeting->secretor) {{$meeting->secretor}} @endif</textarea>
+                            <textarea type="text" class="col-md-12" rows="8" placeholder="Enter Secretary" id="secretary" name="secretary">@if($meeting->secretor) {{$meeting->secretor}} @endif</textarea>
 
                         </td>
                         <td class="col-md-2">
 
-                        <button type="submit" class="col-md-12 btn btn-info">Save</button>
-                                   
+                            <button type="submit" class="col-md-12 btn btn-info">Save</button>
+
                         </td>
                     </tr>
 
-                
+
 
                 </table>
-                </form>
-                @endif
-            </div>
+            </form>
+            @endif
         </div>
-
-        @endif
     </div>
 
+    @endif
+</div>
 
-    @endsection
+
+@endsection

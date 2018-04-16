@@ -14,8 +14,11 @@ use Meet\Invitee;
 use Meet\AgendComment;
 use Meet\Mail\InviteMember;
 use Meet\Member;
+use Response;
 use DB;
 use Session;
+use Meet\AgendaDetails;
+use Meet\tasksComments;
 class InvitesMeetingController extends Controller
 {
 
@@ -46,10 +49,29 @@ class InvitesMeetingController extends Controller
     
     }
 
+    public function getTaskComment(Request $request){
+        
+        return tasksComments::whereagenda_details_id($request->get('detail_id'))->get();
+
+    }
+    
+    public function onAddCommentOnTask(Request $request){
+
+        return   tasksComments::firstOrCreate($request->all());
+    }
+
+    public function getMyAssignedTask(Request $request){
+        
+
+        $r = DB::select(DB::raw('SELECT m.*,a.*,d.* FROM agenda as a, meetings as m, agendadetails as d where m.id=a.meeting_id AND a.meeting_id=7 AND d.agenda_id=a.id  GROUP by d.id'));
+
+        return  Response::json($r);
+        
+    }
+
     public function meetingstatement($invitingId,$meeting_id)
     {
-    
-       $meetings = Meeting::whereid($meeting_id)->get();
+
        $agenda   = Agenda::wheremeeting_id($meeting_id)->get();
        $comments=$this->getComments($meeting_id);
      
@@ -68,6 +90,7 @@ class InvitesMeetingController extends Controller
      public function store(Request $request)
     {
     
+
          $AgendComment = new AgendComment();
                         $AgendComment->meeting_id =  $request['meetingid'];
                         $AgendComment->commenter = $request['commenter'];

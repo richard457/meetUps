@@ -57,7 +57,7 @@ function getDetails() {
 
 window.addEventListener('load', function (e) {
     getDetails();
-
+    
     var ids = document.getElementsByClassName("agendaid");
 
     for (var i = 0; i < ids.length; i++) {
@@ -67,9 +67,11 @@ window.addEventListener('load', function (e) {
         var getagendadata = document.querySelector("#collapsed" + realvalue_id);
 
         getagendadata.addEventListener("load", loadData(realvalue_id));
+        loadMemberOption(realvalue_id);
     }
 
 });
+
 
 function removeagendaDetails(id, agenda) {
 
@@ -144,7 +146,35 @@ function editAgendaDetails(id){
         }
     });
 }
+function loadMemberOption(agenda_id){
+    var data = {
+        _token: document.getElementById('_token').value
+    };
+    $.ajax({
+        url: '/getMemberOption',
+        type: 'GET',
+        data: data,
+        dataType: "json",
+        success:(datas, textStatus, jqXHR)=> {
+        
+            if (datas['data'].length > 0) {
 
+
+                for (var i = 0; i < datas['data'].length; i++) {
+                    var data = datas['data'][i];
+                    getmber = document.getElementById('option_'+agenda_id);
+                    getmber1 = document.getElementById('responsible'+agenda_id);
+                    if (data) {
+                        getmber.innerHTML += `<option value="${data.fullname}#${data.email}">${data.fullname}</option>`;
+                        getmber1.innerHTML += `<option value="${data.fullname}#${data.email}">${data.fullname}</option>`;
+                    }
+                }
+            }
+        }
+    });
+    }
+
+    
 function loadData(realvalue_id) {
     var loading = document.getElementById('wait' + realvalue_id);
     loading.style.display = "block";
@@ -163,18 +193,23 @@ function loadData(realvalue_id) {
             if (datas['data'].length > 0) {
 
 
-
                 for (var i = 0; i < datas['data'].length; i++) {
                     var data = datas['data'][i];
                     getss = document.getElementById('getagendadata' + data.agenda_id);
                     if (data) {
-
+                        var responsble=data.responsible.split('#');
+                        if(responsble){
+                            
+                        responsble.pop();
+                        responsble.join();
+                        }
+                        // <button type="button"  data-toggle="modal" data-target="#editSlides${data.id}" class="btn btn-sm btn-default fa fa-pencil"></button>
                         getss.innerHTML += `<tr id="trdata${data.id}"><td class="col-md-4">${data.matters}</td>
                             <td class="col-md-3">${data.action}</td>
                             <td class="col-md-2">${data.responsible}</td>
                             <td class="col-md-2">${data.deadline}</td>
                             <td class="col-md-1">
-                            <button type="button"  data-toggle="modal" data-target="#editSlides${data.id}" class="btn btn-sm btn-default fa fa-pencil"></button>
+                           
                             <button type="button" onclick="removeagendaDetails(${data.id},${data.agenda_id})" class="btn btn-sm btn-danger fa fa-remove"></button>
                             </td></tr>
                             
@@ -198,19 +233,26 @@ function loadData(realvalue_id) {
                           </center>
                                       <input type="hidden" value="${data.agenda_id}" id="agenda_id${data.id}" name="agenda_id">
                                       
-                                        <div class="col-md-12"> 
+                                      <div class="col-md-4">
+                                      Matters arising during the Meeting</div>
+                                      <div class="col-md-8"> 
                                          <textarea type="text" class="col-md-12"  placeholder="Enter Matters arising during the Meeting" style="overflow-y:hidden;"
                                         id="matters${data.id}">${data.matters}</textarea>
                                        </div>
                                        <br />
-                                        <div class="col-md-12">
+                                       <div class="col-md-4">
+                                       Action to be taken</div>
+                                       <div class="col-md-8">
                                          <textarea type="text" class="col-md-12" placeholder="Enter Action to be taken" style="overflow-y:hidden;"
                                     id="action${data.id}">${data.action}</textarea>
                                        </div>
                                        <div class="clearfix"></div>
-                                        <div class="col-md-12">
-                                        <textarea type="text" class="col-md-12"  placeholder="Enter Responsible Person" style="overflow-y:hidden;"
-                                    id="responsible${data.id}">${data.responsible}</textarea>
+                                        <div class="col-md-4">
+                                        Select user responsible from member list</div>
+                                        <div class="col-md-8">
+                                    <select type="text" id="responsible${data.agenda_id}" class="col-md-12 form-control"  placeholder="Enter Responsible Person" style="overflow-y:hidden;" id="responsible" name="responsible">
+                                    
+                                   </select>
                                        </div>
                                        <br />
                                         <div class="col-md-12"> 
@@ -276,22 +318,101 @@ function dispalyMessage() {
     }, 3000);
 }
 
-function saveAgendaDetails(id) {
-
-    var type = $('#Form' + id).attr('method');
-    var action = $('#Form' + id).attr('action');
-    var mydata = $('#Form' + id).serializeArray();
-    $('#wait' + id).show();
-
-
+function loadallmembers(id){
+    var data = {
+        _token: document.getElementById('_token').value
+    };
+    var getmembertable=document.getElementById('getmembertable'+id);
     $.ajax({
-        url: action,
-        type: type,
-        data: mydata,
+        url: '/getAllMembers',
+        type: 'GET',
+        data: data,
+        dataType: "json",
+        success:(datas, textStatus, jqXHR)=> {
+        
+            if (datas['data'].length > 0) {
+                for (var i = 0; i < datas['data'].length; i++) {
+                    var data = datas['data'][i];
+
+                    // getmber = document.getElementById('option_'+agenda_id);
+                    // getmber1 = document.getElementById('responsible'+agenda_id);
+                   // if (data) {
+                        getmembertable.innerHTML += ` <table class="table">
+                                                        <tr><tr>
+                                                     <a href="javascript:void(0)">
+                                                        <span>
+                                                        <input type="checkbox" onclick="checkboxresponsible(${data.id},'${data.email}','${data.fullname}')" id="checkboxresponsible" value="${data.id}">
+                                                        ${data.fullname}
+                                                            <small class="text-success">${data.email} > ${data.phone} > ${data.address}</small>
+                                                      
+                                                        </span>
+                                                     
+                                                    </a>
+                                                    <td></tr>
+                                                    </table>`;
+                      
+                   // }
+                }
+            }
+        }
+    });
+}
+var tmp = [];
+var tmp_email = [];
+var tmp_name = [];
+var pushagendaDetails={};
+function checkboxresponsible(id,email,name){
+
+    var index  = tmp.indexOf(id);
+    var _email = tmp_email.indexOf(email);
+    var _name  = tmp_name.indexOf(name);
+
+    if(index != -1){
+        tmp.splice(index,1);
+        tmp_email.splice(_email,1);
+        tmp_name.splice(_name,1);
+    }else{
+        tmp.push(id);
+        tmp_email.push(email);
+        tmp_name.push(name);
+    } 
+
+}
+
+function finalsaveAgendaDetails(id){
+    pushagendaDetails= {
+        _token: document.getElementById('_token').value,
+        id:id,
+        matters:document.getElementById('getmatter'+id).value,
+        action:document.getElementById('getaction'+id).value,
+        agenda_id:id,
+        responsible:tmp_name,
+        responsible_id:tmp,
+        responsible_email:tmp_email,
+        deadline:document.getElementById('getdeadline'+id).value,
+};
+//
+
+var type = $('#saveAgendaDetailsForm' + id).attr('method');
+var action = $('#saveAgendaDetailsForm' + id).attr('action');
+$('#wait' + id).show();
+ $.ajax({
+        url: '/saveAgendaBoard',
+        type: 'POST',
+        data: pushagendaDetails,
         dataType: "json",
         success: function (data, textStatus, jqXHR) {
             var message = jqXHR.responseJSON;
+            if(data.status == 200){
+            //    document.getElementById("resposibleModal"+id).style.display="none";
+               pushagendaDetails={};
+               document.getElementById('getmatter'+id).value='';
+               document.getElementById('getdeadline'+id).value= '';
+               document.getElementById('getaction'+id).value= '';
+               document.getElementById('closable'+id).click();
+              
 
+            }
             $('#wait' + id).hide();
             createDiv(message['message']);
             dispalyMessage();
@@ -311,6 +432,15 @@ function saveAgendaDetails(id) {
             });
         }
     });
+}
+
+function saveAgendaDetails(id) {
+  document.getElementById('getmatter'+id).value= document.getElementById('matter'+id).value;
+  document.getElementById('getdeadline'+id).value= document.getElementById('deadline'+id).value;
+  document.getElementById('getaction'+id).value= document.getElementById('action'+id).value;
+  loadallmembers(id);
+  
+   
 
 }
 

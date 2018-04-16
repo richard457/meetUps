@@ -18,8 +18,11 @@ class InvitesController extends Controller
     function store(Request $request)
     {
         
+        
         foreach ($request->get ('check') as $key => $val) {
+           
             if (!empty($val)) {
+
                 $exp = explode (',', $val);
                if (!empty($exp)) {
                 $invites = Invitee::whereuser_id (Auth::id ())->where('invitee_email','=', $exp[1])->where('meeting_id','=',trim($exp[2],''))->count ();
@@ -29,6 +32,8 @@ class InvitesController extends Controller
                 }
                
                }
+
+               //TODO: add send email to queue to fasten the process
 
                 Mail::to ($exp[1])->send (new InviteMember('http://localhost:8000/accept/invitation/' .  $exp[0].'/'.trim($exp[2],'')) );
                 
