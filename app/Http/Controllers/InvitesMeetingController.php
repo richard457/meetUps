@@ -74,7 +74,7 @@ class InvitesMeetingController extends Controller
 
        $agenda   = Agenda::wheremeeting_id($meeting_id)->get();
        $comments=$this->getComments($meeting_id);
-     
+      $meetings=Meeting::where('id',$meeting_id)->get();
      return view ('meetingstatement')->with ('meetingstatement', $meetings)->with ('meetingAgender', $agenda)->with ('invitingId', $invitingId)->with ('meeting_id', $meeting_id)->with('agendaComment',$comments);
    
     }

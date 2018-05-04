@@ -42,7 +42,9 @@
 
                         <div class="col-lg-8 col-sm-8 col-md-8 col-lg-offset-2 col-md-offset-2 col-xs-6" style="background:#fff;margin-top:0.6%">
                         <div class="panel panel-info">
-                                        <div class="panel-heading">Attendance List</div>
+                        <div class="panel" style="margin-top:3%"><h2>Meeting Attendance List</h2></div>
+                                        <hr />
+                                        
                                         <div class="panel-body">
                                                         {{ csrf_field() }}
                                                         <table class="table">

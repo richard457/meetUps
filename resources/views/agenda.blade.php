@@ -2,7 +2,7 @@
 
 <div class="container-fluid">
 
-
+<input type="hidden" id="_token" value="{{ csrf_token() }}">
     @if(sizeof($meeting) >0)
     <div class="row bg-title">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
@@ -60,19 +60,21 @@
                     <form method="post" action="/agenda">
                         {{ csrf_field() }}
                       
-                        <input class="form-control" type="hidden" name="meeting_id" value="{{$meeting->id}}">
+                        <input class="form-control" type="hidden" id="meeting_ids" name="meeting_id" value="{{$meeting->id}}">
 
                         <div class="form-group">
                             <label for="agenda" class="col-md-2 control-label">Agenda item</label>
 
                             <div class="col-md-8">
-                                <input id="agenda" type="text" placeholder="add agenda" class="form-control" name="agenda" required autofocus>
+                                <input id="agenda" type="text" oninput="filterAgenda('agenda','agenda_o',{{$meeting->id}})" placeholder="add agenda" class="form-control" name="agenda" required autofocus>
                              
                             </div>
                         </div>
 
                         <button type="submit" style="margin-top:0%" class="col-md-2 btn btn-info btn-md">Save</button>
                     </form>
+                    <br />
+                    <div id="agenda_o" class="col-md-12">  </div>
 
                 </div>
             </div>
@@ -85,10 +87,22 @@
             <!-- .col -->
             <div class="col-md-12 col-lg-8 col-lg-offset-2 col-sm-12" style="margin-left:140px">
                 @if(sizeof($agenda) >0)
+                       <button type="button" data-toggle="modal" data-target="#printagendacoment" class="btn btn-success" onclick='printMetting()'>Print</button>
+                       <br />
+                       
                 <div class="white-box">
+         
                     <div class="panel panel-default">
-                        <div class="panel-heading">View All Agenda</div>
+                   
+                        <div class="panel-heading">
+                        <div>View All Agenda
+                        <div class="pull-right">
+                       
+                        <input class="form-control"  id="agenda_x" oninput="filterAgenda('agenda_x','agenda_y',{{$meeting->id}})" style="overflow-y:hidden;border-radius:8%;margin-top:-6%" placeholder="Search agenda item">
+                            </div>
+                        </div>
                         <div class="panel-body">
+                        <div id="agenda_y" class="col-md-12">  </div>
                             @foreach($agenda as $agenda)
                             <div class="comment-center p-t-10">
                                 <div class="comment-body">
@@ -133,9 +147,10 @@
                                                     <label for="agenda" class="col-md-2 control-label">Agenda item</label>
 
                                                     <div class="col-md-8">
-                                                        <input id="agenda" type="text" value="{{$agenda->agenda}}" placeholder="add agenda item" class="form-control" name="agenda" required autofocus>
+                                                        <input id="agenda_i" oninput="filterAgenda('agenda_i','agenda_opt',{{$meeting->id}})" type="text" value="{{$agenda->agenda}}" placeholder="add agenda item" class="form-control" name="agenda" required autofocus>
                                                     
                                                     </div>
+                                                    
                                                 </div>
                                                 <input class="form-control" type="hidden" name="meeting_id" value="{{$meeting->id}}">
                                                 <br>
@@ -143,6 +158,7 @@
 
                                                 <button type="submit" style="margin-top:-5%" class="col-md-2 btn btn-info btn-lg">Edit</button>
                                             </form>
+                                            <div id="agenda_opt" class="col-md-12"></div>
                                         </div>
 
 
@@ -202,5 +218,57 @@
 
 </div>
 @endif
+
+<div class="modal fade" id="printagendacoment" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog modal-md" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel">Print</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" id="wordexport" class="btn btn-info" onclick="exportword('agendareports','title')">Export into word</button>
+                                         <button type="button" class="btn btn-success" onclick='printMetting("agendareports")'>Print</button>
+                                        </div>
+                                        <div class="modal-body" id="agendareports">
+                                        <div class="row" style="background:#fff;">
+                                                <div class="col-md-8 col-md-offset-2" style="margin-top:3%">
+                                                    <h3 id="title" style="text-transform:uppercase;text-align:center;font-weight:bold;border:solid;padding-top:0.6em;padding-bottom:0.6em;"> {{$meeting->title}} held on {{ date('F d, Y h:i:sa', strtotime($meeting->date)) }}</h3>
+                                                </div>
+                                                <div class="col-md-12" style="margin-top:2%">
+
+                                                <ul>
+                                                  <li style="margin-top:1%">
+                                                        <b>AGENDA OF THE MEETING </b>
+                                                        <br />
+                                                           
+                                                            
+                                                                <ol id="allagenda">
+                                                                 
+                                                                </ol>
+                                                          
+                                                  </li>
+                                                  <br />
+                                                  <li style="margin-top:1%">
+                                                        <b>ADDITIONAL COMMENTS ON THE MEETING </b>
+                                                       
+                                                        <br />
+                                                           
+                                                            
+                                                                <ol id="allagendacomments">
+                                                                 
+                                                                </ol>
+                                                          
+                                                  </li>
+                                                </ul>
+
+                                          </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
 </div>
 @endsection

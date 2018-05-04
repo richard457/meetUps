@@ -1,12 +1,347 @@
-function printMetting() {
-    var print = document.getElementById('reports').innerHTML;
+function printMetting(reports) {
+    var print = document.getElementById(reports).innerHTML;
     var currentFile = document.body.innerHTML;
     document.body.innerHTML = print;
     window.print();
     document.body.innerHTML = currentFile;
 }
+function exportword(id,title){
+    $("#"+id).wordExport(document.getElementById(title).value);
+}
+function allagenda(){
+    var meeting_id=document.getElementById('meeting_ids').value;
+    var data = {
+        meeting_id: meeting_id,
+        _token: document.getElementById('_token').value
+    };
+    var outputz=document.getElementById('allagenda');
+    $.ajax({
+        url: '/printallmeetingagenda',
+        type: 'POST',
+        data: data,
+        dataType: "json",
+        success: function (data, textStatus, jqXHR) {
+            var respz = jqXHR.responseJSON;
+            if(respz.status=='ok'){
+              
+                outputz.innerHTML="";
+                for (var i = 0; i < respz.data.length; i++) {
+              
+                    outputz.innerHTML+=`<li>${respz.data[i].agenda}</li>`;
+                }
+            }
+        }})
+
+  
+}
+
+function loadTaskCommets(task_id){
+
+    var data = {
+        task_id: task_id,
+        _token: document.getElementById('_token').value
+    };  
+    console.log(task_id);
+    var outputa=document.getElementById('taskComments'+task_id);
+    outputa.innerHTML="Loading ....";
+    $.ajax({
+        url: '/loadTaskCommets',
+        type: 'POST',
+        data: data,
+        dataType: "json",
+        success: function (data, textStatus, jqXHR) {
+            var respa = jqXHR.responseJSON;
+            if(respa.status=='ok'){
+              
+                outputa.innerHTML="";
+                for (var i = 0; i < respa.data.length; i++) {
+                    outputa.innerHTML+=`
+                    <div class="comment-center p-t-10">
+                    <div class="comment-body">
+                        <div class="user-img">
+                            <img src="/images/user.png" style="margin-left:10%;width:70px" alt="user" class="img-circle">
+                        </div>
+                        <div class="mail-content">
+                            <h5>${respa.data[i].comments}
+                            </h5>
+                            <span class="time">commented ${respa.data[i].created_at}</span>
+                            <br/>
+                           
+                        </div>
+                    </div>
 
 
+                </div>`;
+                }
+            }else{
+                outputa.innerHTML=`<li>none added</li>`;
+            }
+        }})
+}
+function allagendacomments(){
+    var meeting_id=document.getElementById('meeting_ids').value;
+    var data = {
+        meeting_id: meeting_id,
+        _token: document.getElementById('_token').value
+    };
+    var outputa=document.getElementById('allagendacomments');
+    $.ajax({
+        url: '/printallmeetingagendacomments',
+        type: 'POST',
+        data: data,
+        dataType: "json",
+        success: function (data, textStatus, jqXHR) {
+            var respa = jqXHR.responseJSON;
+            if(respa.status=='ok'){
+              
+                outputa.innerHTML="";
+                for (var i = 0; i < respa.data.length; i++) {
+              
+                    outputa.innerHTML+=`<li>${respa.data[i].agenda}</li>`;
+                }
+            }else{
+                outputa.innerHTML=`<li>none added</li>`;
+            }
+        }})
+}
+
+    
+function filterAgenda(input,output,meeting_id){
+    var _output=document.getElementById(output);
+    var _input=document.getElementById(input).value;
+    _output.innerHTML="Loading ...";
+    var data = {
+        agenda: _input,
+        meeting_id: meeting_id,
+        _token: document.getElementById('_token').value
+    };
+    if(_input==''){
+        _output.innerHTML="";
+    }
+    $.ajax({
+        url: '/filterAgenda',
+        type: 'POST',
+        data: data,
+        dataType: "json",
+        success: function (data, textStatus, jqXHR) {
+            var resp = jqXHR.responseJSON;
+            if(resp.status=='ok'){
+              
+                _output.innerHTML="";
+                for (var i = 0; i < resp.data.length; i++) {
+              
+                    _output.innerHTML+=`
+                    <div class="comment-center p-t-10"  style="background:#eee; border-bottom:solid 2px gray; padding:3px">
+                    <div class="comment-body">
+                        <div class="user-img">
+                            <img src="/images/agenda.png" style="margin-left:10%;width:70px" alt="user" class="img-circle">
+                        </div>
+                        <div class="mail-contnet">
+                            <h5>${resp.data[i].agenda}</h5>
+                            <span class="time">${resp.data[i].created_at}</span>
+                    
+                            <span class="pull-right">
+                                <a href="#" data-toggle="modal" data-target="#deleteSlide${resp.data[i].id}" class="btn-rounded btn btn-danger btn-outline">
+                                    <i class="ti-close text-danger m-r-5"></i>Delete</a>
+                                <a href="#" data-toggle="modal" data-target="#editSlide${resp.data[i].id}" class="btn-rounded btn btn-primary btn-outline">
+                                    <i class="ti-close text-primary m-r-5"></i>Edit</a>
+                            </span>
+                        </div>
+                    </div>`;
+                
+                }
+                createDiv(resp.message);
+                dispalyMessage();
+            }else{
+                _output.innerHTML="";
+                _output.style.display="none";
+                createDiv(resp.message);
+                dispalyMessage();
+            }
+         
+           
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            var errors = jqXHR.responseJSON;
+
+            $.each(errors, function (index, value) {
+                createDiv(value);
+                dispalyMessage(value);
+            });
+        }
+    });
+}
+function postTaskComment(){
+    var data={
+        commenter:document.getElementById('commenter').value,
+        task_id:document.getElementById('task_id').value,
+        comment:document.getElementById('comment').value,
+        _token:document.getElementById('_token').value,
+
+    };
+    
+    if(data.comment==''){
+        alert('You must type samething on comment box to continue');
+        return;
+    }
+    $.ajax({
+        url: '/post_task_comment',
+        type: 'POST',
+        data: data,
+        dataType: "json",
+        success:  (data, textStatus, jqXHR)=>{
+            var resp = jqXHR.responseJSON;
+            if(resp.status=='ok'){
+               
+                document.getElementById('comment').value='';
+               return loadTaskCommets(document.getElementById('task_id').value);
+               createDiv(resp.message);
+               dispalyMessage();
+              
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            var errors = jqXHR.responseJSON;
+
+            $.each(errors, function (index, value) {
+                console.log(value);
+                createDiv(value);
+                dispalyMessage(value);
+            });
+            
+        }
+    }
+);
+
+
+}
+
+function filterMeeting(input,output){
+    var _output=document.getElementById(output);
+    var _input=document.getElementById(input).value;
+    _output.innerHTML="Loading ...";
+    var data = {
+        meeting: _input,
+        _token: document.getElementById('_token').value
+    };
+    if(_input==''){
+        _output.innerHTML="";
+    }
+    $.ajax({
+        url: '/filterMeeting',
+        type: 'POST',
+        data: data,
+        dataType: "json",
+        success: function (data, textStatus, jqXHR) {
+            var resp = jqXHR.responseJSON;
+            if(resp.status=='ok'){
+              
+                var s='';
+                var c='';
+                var dates='';
+                _output.innerHTML="";
+                for (var i = 0; i < resp.data.length; i++) {
+                   // dates=new Date('F d, Y h:i:sa',resp.data[i].date);
+                    if(resp.data[i].m_status==0){
+                    s=` <button type="text" class="btn-rounded btn btn-warning btn-outline pull-right" id="loadingbtn${resp.data[i].id}" onclick="completeMeeting(${resp.data[i].id})">
+                      <i class="ti-close text-success m-r-5"></i>Complete Meeting</button>`;
+                 }
+                 if(resp.data[i].m_status==1){
+                    c=`<a href="#"class="btn-rounded btn btn-success btn-outline pull-right">
+                    <i class="fa fa-check m-fa-5"></i></a>`;
+                 }
+
+                    _output.innerHTML+=`<hr /><div class="comment-center p-t-10">
+                    <div class="comment-body" style="background:#eee; border-bottom:solid 2px gray; padding:3px">
+                        <div class="user-img">
+                            <img src="/images/meeting.png" style="margin-left:10%;width:70px" alt="user" class="img-circle">
+                        </div>
+                        <a href="/_meeting/${resp.data[i].id}">
+                            <div class="mail-contnet">
+                                <h5>${resp.data[i].title}</h5>
+                                <span class="time"><i class="fa fa-clock-o" aria-hidden="true"></i> ${resp.data[i].date}</span>, at <i class="fa fa-map-marker" aria-hidden="true"></i> <span class="text-success">${resp.data[i].venue}</span>
+                                <br/>
+                               
+                                <span class="pull-right">
+                                <a href="/_meeting/${resp.data[i].id}" class="btn-rounded btn btn-info btn-outline pull-right">
+                                        <i class="ti-close text-danger m-r-5"></i>Open Meeting
+                                </a>
+                                
+                                ${c}
+                                ${s}  
+                                 </span>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>`
+                
+                }
+                createDiv(resp.message);
+                dispalyMessage();
+            }else{
+                _output.innerHTML="";
+                _output.style.display="none";
+                createDiv(resp.message);
+                dispalyMessage();
+            }
+         
+           
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            var errors = jqXHR.responseJSON;
+
+            $.each(errors, function (index, value) {
+                createDiv(value);
+                dispalyMessage(value);
+            });
+        }
+    });
+}
+
+function completeMeeting(id){
+
+    var loading = document.getElementById('loadingbtn'+id);
+    loading.style.innerHTML = "Loading...";
+    var data = {
+        id: id,
+        _token: document.getElementById('_token').value
+    };
+    $.ajax({
+        url: '/meeting_complete',
+        type: 'POST',
+        data: data,
+        dataType: "json",
+        success: function (data, textStatus, jqXHR) {
+            var resp = jqXHR.responseJSON;
+            if(resp.status=='ok'){
+
+                loading.style.display = "none";
+                createDiv(resp.message);
+                dispalyMessage();
+               return window.location.href="/meeting";
+            }else{
+                loading.style.innerHTML = "Try again.."; 
+            }
+           
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            var errors = jqXHR.responseJSON;
+
+            $.each(errors, function (index, value) {
+                createDiv(value);
+                dispalyMessage(value);
+            });
+        }
+    });
+
+}
+function getDynamicDatepicker(id){
+    $('#datepicker'+id).datetimepicker({daysOfWeekDisabled: [0, 6]});
+}
 function getDetails() {
     //var id=document.getElementById('agenda_id').value.a;
     var form = $('#getform');
@@ -31,12 +366,12 @@ function getDetails() {
                         gets = document.getElementById('getdetails' + row['data'][i].agenda_id);
 
                         if (row['data'][i]) {
-                            gets.innerHTML += '<tr class="row" style="border-bottom:solid thin;width:100%;min-width:100%;max-width:100%;"><td  class="col-md-4">' + row['data'][i].matters + '</td><td  class="col-md-4">' + row['data'][i].action + '</td> <td  class="col-md-2">' + row['data'][i].responsible + '</td><td  class="col-md-2">' + row['data'][i].deadline + '</td></tr>';
+                            gets.innerHTML += '<tr class="row" style="border-bottom:solid thin;width:100%;min-width:100%;max-width:100%;"><td  class="col-md-3" style="text-align:left">' + row['data'][i].matters + '</td><td  class="col-md-3" style="text-align:center">' + row['data'][i].action + '</td> <td  class="col-md-3" style="text-align:center">' + row['data'][i].responsible + '</td><td  class="col-md-3" style="text-align:right">' + row['data'][i].deadline + '</td></tr>';
 
                         }
 
                     }
-                    gets.innerHTML += '<tr class="row" style="border-bottom:none;width:100%;min-width:100%;max-width:100%;"><td  class="col-md-5"></td><td  class="col-md-3"></td> <td  class="col-md-2"></td><td  class="col-md-2"></td></tr>';
+                    gets.innerHTML += '<tr class="row" style="border-bottom:none;width:100%;min-width:100%;max-width:100%;"><td  class="col-md-3"></td><td  class="col-md-3"></td> <td  class="col-md-3"></td><td  class="col-md-3"></td></tr>';
                 }
 
 
@@ -57,7 +392,7 @@ function getDetails() {
 
 window.addEventListener('load', function (e) {
     getDetails();
-    
+ 
     var ids = document.getElementsByClassName("agendaid");
 
     for (var i = 0; i < ids.length; i++) {
@@ -68,7 +403,12 @@ window.addEventListener('load', function (e) {
 
         getagendadata.addEventListener("load", loadData(realvalue_id));
         loadMemberOption(realvalue_id);
+        getDynamicDatepicker(realvalue_id);
     }
+
+    allagenda();
+    allagendacomments();
+    loadTaskCommets();
 
 });
 
@@ -210,7 +550,7 @@ function loadData(realvalue_id) {
                             <td class="col-md-2">${data.deadline}</td>
                             <td class="col-md-1">
                            
-                            <button type="button" onclick="removeagendaDetails(${data.id},${data.agenda_id})" class="btn btn-sm btn-danger fa fa-remove"></button>
+                            <button type="button" style="padding:2px" onclick="removeagendaDetails(${data.id},${data.agenda_id})" class="col-md-12 btn btn-sm btn-danger">-</button>
                             </td></tr>
                             
                             
@@ -322,6 +662,7 @@ function loadallmembers(id){
     var data = {
         _token: document.getElementById('_token').value
     };
+    
     var getmembertable=document.getElementById('getmembertable'+id);
     $.ajax({
         url: '/getAllMembers',
@@ -329,8 +670,10 @@ function loadallmembers(id){
         data: data,
         dataType: "json",
         success:(datas, textStatus, jqXHR)=> {
-        
+       
             if (datas['data'].length > 0) {
+                document.getElementById('submitall'+id).style.display='block';
+                getmembertable.innerHTML="";
                 for (var i = 0; i < datas['data'].length; i++) {
                     var data = datas['data'][i];
 
@@ -393,6 +736,7 @@ function finalsaveAgendaDetails(id){
 };
 //
 
+
 var type = $('#saveAgendaDetailsForm' + id).attr('method');
 var action = $('#saveAgendaDetailsForm' + id).attr('action');
 $('#wait' + id).show();
@@ -420,7 +764,10 @@ $('#wait' + id).show();
 
             $('#Form' + id).trigger('reset');
             
-            return loadData(mydata[1]['value']);
+             loadData(mydata[1]['value']);
+             setTimeout(function () {
+                location.reload()
+            }, 100);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             var errors = jqXHR.responseJSON;
@@ -429,6 +776,7 @@ $('#wait' + id).show();
                 waitingDialog.hide();
                 createDiv(value);
                 dispalyMessage(value);
+                
             });
         }
     });
@@ -438,8 +786,15 @@ function saveAgendaDetails(id) {
   document.getElementById('getmatter'+id).value= document.getElementById('matter'+id).value;
   document.getElementById('getdeadline'+id).value= document.getElementById('deadline'+id).value;
   document.getElementById('getaction'+id).value= document.getElementById('action'+id).value;
+
+  if(document.getElementById('matter'+id).value=='' || document.getElementById('action'+id).value=='' || document.getElementById('action'+id).value==''){
+      alert('Please fill the missing input');
+
+      document.getElementById('getmembertable'+id).innerHTML="<div class='alert alert-info'>Please before submit, make sure that no empty input</div>";
+      document.getElementById('submitall'+id).style.display='none';
+      return;
+  }
   loadallmembers(id);
-  
    
 
 }
@@ -479,7 +834,6 @@ $(document).ready(function () {
     }
 
     $("#wordexport").click(function (event) {
-
         $("#reports").wordExport(document.getElementById("title").value);
 
     });

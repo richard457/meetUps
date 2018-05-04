@@ -198,7 +198,7 @@
     <script src="{{ asset('/styles/plugins/bower_components/toast-master/js/jquery.toast.js') }}"></script>
     <script src="{{asset('/styles/js/moment.js')}}"></script>
     <script src="{{asset('styles/js/pdf.js')}}"></script>
-    <script src="{{asset('styles/js/date.js')}}"></script>
+    <script src="{{asset('styles/js/data.js')}}"></script>
   
 </body>
 

@@ -35,7 +35,7 @@ class InvitesController extends Controller
 
                //TODO: add send email to queue to fasten the process
 
-                Mail::to ($exp[1])->send (new InviteMember('http://localhost:8000/accept/invitation/' .  $exp[0].'/'.trim($exp[2],'')) );
+                Mail::to ($exp[1])->send (new InviteMember(env('APP_DOMAIN').'/accept/invitation/' .  $exp[0].'/'.trim($exp[2],'')) );
                 
                
             }else{

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TasksComments extends Migration
+class Agendaresponsible extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class TasksComments extends Migration
      */
     public function up()
     {
-        Schema::create('tasks_comments', function (Blueprint $table) {
+        Schema::create('responsible_on_agenda_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('commentor_id');
-            $table->text('comments');
-        
             $table->integer('agenda_details_id')->unsigned()->index();
             $table->foreign('agenda_details_id')->references('id')->on('agenda_details')->onDelete('cascade');
+            $table->integer('member_id')->unsigned()->index();
+            $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class TasksComments extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks_comments');
+        Schema::dropIfExists('responsible_on_agenda_details');
     }
 }

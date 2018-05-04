@@ -13,6 +13,7 @@ use Meet\Agenda;
 use Meet\Invitee;
 use Meet\Attenda;
 use Meet\AgendComment;
+use Meet\tasksComments;
 use Meet\Member;
 use Illuminate\Support\Facades\Validator;
 
@@ -64,6 +65,57 @@ class MeetingController extends Controller
         return redirect()->back();
     }
 
+    function meetingComplete(Request $request){
+        $metting=Meeting::find($request->get ('id'));
+        $metting->m_status='1';
+       if($metting->save()){
+        return ['message'=>'successfully saved!','status'=>'ok'];
+       }else{
+        return ['message'=>'Not saved,try again!','status'=>'bad'];
+       }
+       
+    }
+    function filterMeeting(Request $request){
+        $results = Meeting::where('title', 'like', $request->get ('meeting'))->whereuser_id(Auth::id())->orderBy('created_at', 'DESC')->get();
+       if(count($results) > 0){
+        return ['data'=>$results,'message'=>'searching....','status'=>'ok'];
+       }else{
+        return ['data'=>'','message'=>'searching....','status'=>'fail'];
+       }
+    
+    }
+
+    function printMeetingAgenda(Request $request){
+        $results = Agenda::whereuser_id(Auth::id())->wheremeeting_id($request->get ('meeting_id'))->orderBy('created_at', 'DESC')->get();
+        if(count($results) > 0){
+            return ['data'=>$results,'message'=>'searching....','status'=>'ok'];
+           }else{
+            return ['data'=>'','message'=>'searching....','status'=>'fail'];
+           }
+        
+    }
+
+    function printMeetingAgendaComments(Request $request){
+        $results = AgendComment::wheremeeting_id($request->get ('meeting_id'))->orderBy('created_at', 'DESC')->get();
+        if(count($results) > 0){
+            return ['data'=>$results,'message'=>'searching....','status'=>'ok'];
+           }else{
+            return ['data'=>'','message'=>'searching....','status'=>'fail'];
+           }
+        
+    }
+    
+    function filterAgenda(Request $request){
+        $results = Agenda::where('agenda', 'like', $request->get ('agenda'))->whereuser_id(Auth::id())->wheremeeting_id($request->get ('meeting_id'))->orderBy('created_at', 'DESC')->get();
+       if(count($results) > 0){
+        return ['data'=>$results,'message'=>'searching....','status'=>'ok'];
+       }else{
+        return ['data'=>'','message'=>'searching....','status'=>'fail'];
+       }
+    
+    }
+    
+
     function editmeeting(Request $request){
        
         $metting=Meeting::find($request->get ('meetingid'));
@@ -85,6 +137,7 @@ class MeetingController extends Controller
         $metting->save();
         return ['message'=>'successfully saved!'];
         }
+        
 
     function meetingDetails($meeting_id){
         $comments=$this->getComments($meeting_id);
@@ -110,7 +163,6 @@ class MeetingController extends Controller
     function board($meeting_id){
         $meeting=$this->getMeeting($meeting_id);
         $agenda =$this->getAgenda($meeting_id);
-        Log::info($agenda);
         return view('meetingboard')->with('meeting',$meeting)->with('agenda',$agenda);
     }
     function getAgenda($meeting_id){
@@ -191,6 +243,37 @@ class MeetingController extends Controller
                 $comment->delete();
                 Session::flash('alert-success','successfully Deleted.');
                 return redirect()->back();
+            }
+
+            function memberTaskList($id){
+                $task=DB::select("select a.agenda,a.id as ag_id, agd.id as agd_id,m.id as m_id,r.id as r_id,r.member_id,agd.matters,agd.action,agd.responsible,agd.deadline from responsible_on_agenda_details as r, agenda as a, agenda_details as agd,members as m where r.agenda_details_id=agd.id AND r.member_id=m.id AND agd.agenda_id =a.id AND r.member_id =".$id." GROUP BY r.agenda_details_id");
+           
+                  return view ('memberTaskList')->with ('taskList', $task)->with ('memberid', $id);
+
+                   
+
+                    
+            }
+            function postTaskComment(Request $request){
+        
+                $task=new tasksComments();
+                $task->commentor_id=$request['commenter'];
+                $task->agenda_details_id=$request['task_id'];
+                $task->comments=$request['comment'];
+            
+                if($task->save()){
+                    return ['data'=>'','message'=>'comment sent successfully','status'=>'ok'];
+                   }else{
+                    return ['data'=>'','message'=>'comment not sent ','status'=>'fail'];
+                   }
+            }
+            function loadTaskCommets(Request $request){
+                $tasks = tasksComments::whereagenda_details_id($request['task_id'])->orderBy('created_at', 'DESC')->get();
+                if(count($tasks) > 0){
+                 return ['data'=>$tasks,'message'=>'searching....','status'=>'ok'];
+                }else{
+                 return ['data'=>'','message'=>'searching....','status'=>'fail'];
+                }
             }
 
            

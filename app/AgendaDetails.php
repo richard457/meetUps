@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AgendaDetails extends Model
 {
-    protected $table='agendaDetails';
+    protected $table='agenda_details';
     protected $fillable=['matters','action','responsible','deadline','agenda_id','user_id'];
 
     

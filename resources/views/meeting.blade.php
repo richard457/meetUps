@@ -1,5 +1,5 @@
 @extends('layouts.app') @section('content')
-
+<input type="hidden" id="_token" value="{{ csrf_token() }}">
 <div class="container-fluid">
     <div class="row bg-title">
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -38,18 +38,27 @@
                             </td>
                             <td class="col-md-10">
                                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                                    <input class="form-control" style="overflow-y:hidden;" name="title"  value="{{ old('title') }}" placeholder="meeting handle" required autofocus>
+                                    <input class="form-control"  id="title_i" oninput="filterMeeting('title_i','title_o')" style="overflow-y:hidden;" name="title"  value="{{ old('title') }}" placeholder="meeting handle" required autofocus>
                                     
                                                     @if ($errors->has('title'))
                                                         <span class="help-block">
                                                             <strong>{{ $errors->first('title') }}</strong>
                                                         </span>
                                                         @endif
+
+                                  
                                 </div>
 
-                            </td>    
-                               
+                            </td> 
+                          
                             </tr>
+                            <tr>
+                            <td class="col-md-1">  
+                            </td> 
+                            <td class="col-md-11">  
+                            <div id="title_o">  </div>
+                            </td>
+                            </tr> 
                             <tr><td>&nbsp;</td> <td>&nbsp;</td> </tr>
                             <tr>
                             <td class="col-md-2">
@@ -75,6 +84,7 @@
                                
                                 </td>
                             </tr>
+                           
                             <tr><td>&nbsp;</td> <td>&nbsp;</td> </tr>
                             <tr>
                             <td class="col-md-2">
@@ -112,10 +122,19 @@
     <!-- .col -->
     <div class="col-md-12 col-lg-8 col-lg-offset-2 col-sm-12" style="margin-left:140px">
         @if(sizeof($meetings) >0)
+        <div id="wait"></div>
         <div class="white-box">
             <div class="panel panel-default">
-                <div class="panel-heading">View All Meetings</div>
+                <div class="panel-heading">View All Meetings
+                <div class="pull-right">
+                <input class="form-control"  id="title_x" oninput="filterMeeting('title_x','title_y')" style="overflow-y:hidden;border-radius:8%;margin-top:-6%" placeholder="Search meeting">
+                                    
+                </div>
+                </div>
+                
                 <div class="panel-body">
+
+                <div id="title_y" class="panel panel-info"></div>
                     @foreach($meetings as $meet)
                     <div class="comment-center p-t-10">
                         <div class="comment-body">
@@ -130,11 +149,26 @@
                                     <span class="mail-desc"> {{$meet->title}}</span>
                                     
                                     <span class="pull-right">
+                                    <a href="/_meeting/{{$meet->id}}" class="btn-rounded btn btn-info btn-outline">
+                                            <i class="ti-close text-danger m-r-5"></i>Open Meeting</a>
+                                            @if ($meet->m_status==0)
+                                          
+                                            <button type="text" class="btn-rounded btn btn-warning btn-outline" id="loadingbtn{{$meet->id}}" onclick="completeMeeting({{$meet->id}})">
+                                            <i class="ti-close text-success m-r-5"></i>Complete Meeting</button>
+                                            
+                                            @endif
+
                                         <a href="#" data-toggle="modal" data-target="#deleteSlide{!! $meet->id !!}" class="btn-rounded btn btn-danger btn-outline">
                                             <i class="ti-close text-danger m-r-5"></i>Delete</a>
                                         <a href="#" data-toggle="modal" data-target="#editSlide{!! $meet->id !!}" class="btn-rounded btn btn-primary btn-outline">
                                             <i class="ti-close text-primary m-r-5"></i>Edit</a>
+                                           
+                                            @if ($meet->m_status==1)
+                                            <a href="#"class="btn-rounded btn btn-success btn-outline pull-right">
+                                            <i class="fa fa-check m-fa-5"></i></a>
+                                            @endif
                                     </span>
+
                                 </div>
                             </a>
                         </div>
@@ -170,7 +204,7 @@
                                         </td>
                                         <td class="col-md-10">
                                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                                            <textarea class="form-control" onkeydown="autoResize(event)" style="overflow-y:hidden;" name="title" rows='5' placeholder="meeting handle" required autofocus>{{ $meet->title}}</textarea>
+                                            <input class="form-control" id="title_ei" oninput="filterMeeting('title_ei','title_eo')" value="{{ $meet->title}}" style="overflow-y:hidden;" name="title" rows='5' placeholder="meeting handle" required autofocus>
                                             
                                                             @if ($errors->has('title'))
                                                                 <span class="help-block">
@@ -181,6 +215,13 @@
 
                                         </td>    
                                         
+                                        </tr>
+                                        <tr>
+                                        <td class="col-md-1">  
+                                        </td> 
+                                        <td class="col-md-11">  
+                                        <div id="title_eo">  </div>
+                                        </td>
                                         </tr>
                                         <tr><td>&nbsp;</td> <td>&nbsp;</td> </tr>
                                         <tr>
