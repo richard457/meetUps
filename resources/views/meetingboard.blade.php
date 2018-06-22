@@ -61,7 +61,7 @@
             <div class="card">
                 <div class="body">
                     <div class="panel row clearfix">
-                        <div class="panel-heading panel-info">AGENDA OF THE MEETING DETAILS </div>
+                        <div class="panel-heading panel-info">AGENDA OF THE MEETING - MEETING BOARD </div>
                         <br /> @if(sizeof($agenda) >0)
                         <div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
 
@@ -72,7 +72,7 @@
                                         <h4 class="panel-title">
                                             <a class="collapsed" id="collapsed{{$agenda->id}}" role="button" data-toggle="collapse" data-parent="#accordion_{{$agenda->id}}"
                                                 href="#collapseTwo_{{$agenda->id}}" aria-expanded="false" aria-controls="collapseTwo_{{$agenda->id}}">
-                                                {{$agenda->agenda}}
+                                                <img src="{{ asset('images/agenda.png') }}" style="margin-left:1%;width:70px" alt="user" class="img-circle"> {{$agenda->agenda}}
                                             </a>
                                         </h4>
                                     </div>
@@ -106,11 +106,8 @@
                                                 <tbody id="getagendadata{{$agenda->id}}">
                                                 </tbody>
                                                 <tfooter>
-                                                   
-
-                                                        <tr>
-
-                                                            <input type="hidden" value="{{ csrf_token() }}" name="_token" id="_token">
+                                                     <tr>
+                                                         <input type="hidden" value="{{ csrf_token() }}" name="_token" id="_token">
                                                             <input type="hidden" value="{{$agenda->id}}" id="agenda_id" name="agenda_id">
 
                                                             <td class="col-md-4">
@@ -123,19 +120,21 @@
                                                                     name="action"></textarea>
                                                             </td>
                                                             <td class="col-md-2">
-                                  
-                                                              </td>
+                                                              
+                                                            </td>
+                                                           
                                                             <td class="col-md-2">
-                                                                <div class='col-md-12 input-group date' id='datepicker'>
+                                                                <div class='col-md-12 input-group date' id='datepicker{{$agenda->id}}'>
                                                                     <input type='text' name="date" id="deadline{{$agenda->id}}" class="form-control" placeholder="Choose Deadline date" required>
                                                                     <span class="input-group-addon">
                                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                                     </span>
                                                                 </div>
                                                             </td>
+                                                          
                                                             <td class="col-md-1">
                                                                 <button type="button" onclick="saveAgendaDetails({{$agenda->id}})" data-toggle="modal" data-target="#resposibleModal{!! $agenda->id !!}"
-                                                                    class="col-md-12 btn btn-info">Save</button>
+                                                                    class="col-md-12 btn btn-info btn-sm">+</button>
 
 
 
@@ -160,7 +159,7 @@
                                                                             </div>
 
                                                                         </div>
-                                                                        <div class="panel-footer">  
+                                                                        <div class="panel-footer" id="submitall{{$agenda->id}}" >  
 
                                                                             <button class="btn btn-info" onclick="finalsaveAgendaDetails({{$agenda->id}})">Save</button>
                                                                         </div>

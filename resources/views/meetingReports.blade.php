@@ -54,7 +54,7 @@
     <!-- /////////////////////////////// where reports is begin ////////////////////////////////-->
     <div class="row">
         <button type="button" id="wordexport" class="btn btn-info">Export into word</button>
-        <button type="button" class="btn btn-success" onclick='printMetting()'>Print</button>
+        <button type="button" class="btn btn-success" onclick='printMetting("reports")'>Print</button>
         <br />
     </div>
     <input type="hidden" id="title" value="{{$meeting->title}} held on {{ date('F d, Y h:i:sa', strtotime($meeting->date)) }}">
@@ -139,10 +139,10 @@
                                     <td class='col-md-9' colspan="6">
                                         <table style="width:100%;">
                                             <tr>
-                                            <th class="col-md-4" style="text-align:center">Matters arising during the Meeting</th>
-                                            <th class="col-md-4" style="text-align:center">Action to be taken</th>
-                                            <th class="col-md-2" style="text-align:center">Responsible Person</th>
-                                            <th class="col-md-2" style="text-align:center">Deadline</th>
+                                            <th class="col-md-3" style="text-align:left">Matters arising during the Meeting</th>
+                                            <th class="col-md-3" style="text-align:center">Action to be taken</th>
+                                            <th class="col-md-3" style="text-align:center">Responsible Person</th>
+                                            <th class="col-md-3" style="text-align:right">Deadline</th>
                                             <tr>
                                         </table>
                                     </td>
@@ -158,8 +158,8 @@
                                  <td class="col-md-3"  id="agenda{{$agenda->id}}">
                                         {{$agenda->agenda}}
                                     </td>
-                                    <td class='col-md-9' colspan="6" style="width:100%">
-                                        <table id='getdetails{{$agenda->id}}'></table>
+                                    <td class='col-md-9' colspan="6">
+                                        <table id='getdetails{{$agenda->id}}' style="width:100%;"></table>
                                     </td>
 
 

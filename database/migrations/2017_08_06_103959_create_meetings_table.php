@@ -22,6 +22,8 @@ class CreateMeetingsTable extends Migration
             $table->string('director')->nullable();
             $table->string('secretor')->nullable();
             $table->integer('user_id')->unsigned()->index();
+            $table->enum ('m_status', ['0', '1'])->default ('0');
+            $table->string('remarks')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             
             $table->timestamps();

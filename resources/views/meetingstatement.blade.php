@@ -28,12 +28,12 @@
 </head>
 
 <body>
-    <div class="content" style="padding:1em;margin:2%">
+    <div class="content">
         <div class="row">
 
 
 
-            <div class="col-md-9" style="min-width:750px;" @if(sizeof($meetingstatement)>0)>
+            <div class="col-md-col-md-offset-2" style="min-width:750px;" @if(sizeof($meetingstatement)>0)>
 
                 <div class="panel panel-primary">
                     <div class="panel-heading">Meeting </div>
@@ -99,13 +99,13 @@
 
                                     @endif
                                 </div>
+    <br />
+                                <div class="panel col-md-12 col-lg-8 col-lg-offset-2 col-sm-12" style="margin-left:140px">
 
-                                <div class="col-md-12" style="min-width:750px;">
-
-                                    <div class="panel panel-primary">
+                                    <div class="panel panel-primary"  style="margin-left:140px">
                                         <div class="panel-heading">Meeting Comments </div>
                                     </div>
-                                    <div class="panel-body">
+                                    <div class="panel-body"  style="margin-left:140px">
                                         <div class="flash-message">
                                             @foreach (['danger', 'warning', 'success', 'info'] as $msg) @if(Session::has('alert-' . $msg))
 
@@ -122,19 +122,23 @@
 
                                             <input type="text" name="meetingid" hidden="hidden" value="{{$meeting_id}}">
 
-                                            <textarea type="text" onkeydown="autoResize(event)" style="overflow-y:hidden;" placeholder="Type you comments ...." rows="4"
-                                                class="form-control col-sm-12 col-md-8 col-lg-8" name="comment" required></textarea>
-                                            <p>
+                                            <textarea type="text" onkeydown="autoResize(event)" style="overflow-y:hidden;" placeholder="Type you comments ...." rows="3"
+                                                class="form-control col-md-12" name="comment" required></textarea>
+                                                <br />
+                                            <div class="pt-2">
 
-                                                <button type="submit" id="button" class="col-sm-12 col-md-12 col-lg-12 btn btn-info btn-lg">Post</button>
-                                            </p>
+                                              
+                                            </div>
+
+                                            <button type="submit" id="button"  class="btn-rounded btn btn-info btn-outline pull-right mt-2" style="margin:4px">Post</button>
                                         </form>
 
                                     </div>
 
 
                                 </div>
-                                <div class="panel-body">
+                             
+                                <div class="panel-body col-md-12 col-lg-8 col-lg-offset-2 col-sm-12"  style="margin-left:200px;margin-top:-5px">
                                     @if(sizeof($agendaComment)>0)
                                     <div class="white-box">
                                         <div class="panel panel-default">
@@ -219,18 +223,7 @@
                 </div>
 
             </div>
-            <div class="col-md-3">
-            <div class="modal-content">
-            <div class="modal-heading">
-                Task Assigned
-            </div>
-            <div class="modal-body">
-            
-            </div>
-            <div class="modal-footer">
-            </div>
-            </div>
-            </div>
+          
 
 
 

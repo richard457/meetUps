@@ -61,6 +61,16 @@ Route::get ('/agendComment/{agendaId}/{invitedId}/{agendatitle}', 'InvitesMeetin
 
 Route::post ('member_delete', 'MemberController@member_delete');
 Route::post ('meeting_delete', 'MeetingController@meeting_delete');
+Route::post ('/meeting_complete', 'MeetingController@meetingComplete');
+Route::post ('/filterMeeting', 'MeetingController@filterMeeting');
+Route::post ('/filterAgenda', 'MeetingController@filterAgenda');
+Route::post ('/printallmeetingagenda', 'MeetingController@printMeetingAgenda');
+Route::post ('/printallmeetingagendacomments', 'MeetingController@printMeetingAgendaComments');
+
+
+
+
+
 Route::post ('agenda_delete', 'MeetingController@agenda_delete');
 Route::post ('editmembers', 'MemberController@editmembers');
 Route::post ('editmeeting', 'MeetingController@editmeeting');
@@ -77,6 +87,10 @@ Route::post ('comments', 'InvitesMeetingController@store');
 Route::post ('accepted', 'InvitesMeetingController@accepted');
 
 Route::get ('/accept/invitation/{ofMettingId}', 'InvitesController@acceptInvitation');
+Route::get ('/comments/responsible/{id}', 'MeetingController@memberTaskList');
+Route::post ('/post_task_comment', 'MeetingController@postTaskComment');
+Route::post ('/loadTaskCommets', 'MeetingController@loadTaskCommets');
+
 Route::get ('/members', 'MemberController@members');
 
 Route::get ('/_meeting/{meeting_id}', 'MeetingController@meetingDetails');

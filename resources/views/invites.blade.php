@@ -96,8 +96,9 @@
                                                                     <th>Invite</th>
                                                                     <th>Name</th>
                                                                     <th>Email Address</th>
-                                                                    <th>Other address</th>
+                                                                    
                                                                     <th>Phone number</th>
+                                                                    <th>Other address</th>
                                                                     <th>Position</th>
                                                                 </tr>
                                                                 @foreach($invites as $invites)

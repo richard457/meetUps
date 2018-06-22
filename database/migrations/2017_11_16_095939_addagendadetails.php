@@ -13,16 +13,14 @@ class Addagendadetails extends Migration
      */
     public function up()
     {
-        Schema::create('agendaDetails', function (Blueprint $table) {
+        Schema::create('agenda_details', function (Blueprint $table) {
             $table->increments('id');
             $table->string ('matters');
             $table->string ('action');
-            $table->string ('responsible');
             $table->string ('deadline');
-
+            $table->string ('responsible');
             $table->integer('agenda_id')->unsigned()->index();
             $table->foreign('agenda_id')->references('id')->on('agenda')->onDelete('cascade');
-
             $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->enum ('status', ['appending', 'rejected', 'approved'])->default ('appending');
@@ -37,6 +35,6 @@ class Addagendadetails extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('agenda_details');
     }
 }
